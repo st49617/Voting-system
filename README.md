@@ -16,4 +16,5 @@ Takto stanovenou strukturu se snažte dodržovat.
 DATABÁZE: MySQL
 login: root
 heslo: 
+název databáze: voting_system
 
