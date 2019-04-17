@@ -7,11 +7,8 @@ pro tvoření dalších aplikací zachovejte stejnou struktu balíčků, domény
 struktura jednotlivých aplikací bude vypadat následovně:
 
 -controller
-
 -model
-
 -dao
-
 -service
 
 Takto stanovenou strukturu se snažte dodržovat. 
