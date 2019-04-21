@@ -26,7 +26,7 @@ public class MeetingService {
         this.meetingDAO = meetingDAO;
     }
 
-    public void add(Date date) {
+    public void add(String date) {
         meetingDAO.save(new Meeting(date));
     }
 
