@@ -1,8 +1,8 @@
 # Voting-system
 Systém pro hlasování zastupitelstvo města
 
-STRUKTURA PROJEKTU:
-v root složce jsou podložky pro jednotlivé aplikace
+## Struktura projektu
+V root složce jsou podložky pro jednotlivé aplikace
 pro tvoření dalších aplikací zachovejte stejnou struktu balíčků, domény atd.
 struktura jednotlivých aplikací bude vypadat následovně:
 
@@ -11,21 +11,24 @@ struktura jednotlivých aplikací bude vypadat následovně:
 - dao
 - service
 
-Takto stanovenou strukturu se snažte dodržovat. 
+_Takto stanovenou strukturu se snažte dodržovat._ 
 
-DATABÁZE: MySQL
-login: root
-heslo: 
-název databáze: voting_system
+## Databáze
+- typ databáze: MySQL
+- login: root
+- heslo: 
+- název databáze: voting_system
 
-POSTUP PRÁCE:
+_(login: 'root', a heslo: '', by měli být výchozí při použití XAMPPu)_
 
-- fork projektu k sobě. 
-- vytvoření nové větve 
-- vypracování 1 issue
-- pull reguest do původního repozitáře do master větve
-- do komentáře pull reguestu uvádějte 'resolve #cislo issue' aby se pull reguest a issue se automaticky propojili a issue se po merge automaticky zavřela 
-- jiný člen týmu schválí pull request a mergne do mastru
-- smazání nové větve po dokončení issue
+## Postup práce
+Postup práce by měl probíhat v následujících krocích:
+1. fork projektu k sobě 
+2. vytvoření nové větve 
+3. vypracování 1 issue
+4. pull request do původního repozitáře do master větve
+5. do komentáře pull reguestu uvádějte 'resolve #cislo issue' aby se pull reguest a issue se automaticky propojili a issue se po merge automaticky zavřela 
+6. jiný člen týmu schválí pull request a mergne do mastru
+7. smazání nové větve po dokončení issue
 
-Prosím o dodržování tohoto postupu
+_Prosím o dodržování tohoto postupu._
