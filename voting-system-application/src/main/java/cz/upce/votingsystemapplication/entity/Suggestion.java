@@ -8,6 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Suggestion {
 
+    // JUST FOR MEETING-RELATED PURPOSES
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
