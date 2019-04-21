@@ -24,6 +24,7 @@ POSTUP PRÁCE:
 - vytvoření nové větve 
 - vypracování 1 issue
 - pull reguest do původního repozitáře do master větve
+- do komentáře pull reguestu uvádějte 'resolve #cislo issue' aby se pull reguest a issue se automaticky propojili a issue se po merge automaticky zavřela 
 - jiný člen týmu schválí pull request a mergne do mastru
 - smazání nové větve po dokončení issue
 
