@@ -1,5 +1,9 @@
 package cz.upce.votingsystemapplication.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
@@ -17,6 +21,10 @@ public class Meeting {
 
     @OneToMany(mappedBy = "id")
     private List<Suggestion> suggestions;
+
+    public Meeting(@NotEmpty Date date) {
+        this.date = date;
+    }
 
     public long getId() {
         return id;
