@@ -23,7 +23,7 @@ public class MeetingController {
         return "meeting-list";
     }
 
-    @GetMapping("/meetings/{id}")
+    @GetMapping("/meetings/show/{id}")
     public String getMeetingById(@PathVariable Long id, Model model) {
         model.addAttribute("meeting", meetingService.findById(id));
         return "meeting-detail";
