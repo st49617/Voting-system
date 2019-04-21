@@ -18,3 +18,13 @@ login: root
 heslo: 
 název databáze: voting_system
 
+POSTUP PRÁCE:
+
+- fork projektu k sobě. 
+- vytvoření nové větve 
+- vypracování 1 issue
+- pull reguest do původního repozitáře do master větve
+- jiný člen týmu schválí pull request a mergne do mastru
+- smazání nové větve po dokončení issue
+
+Prosím o dodržování tohoto postupu
