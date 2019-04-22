@@ -32,8 +32,8 @@ public class MeetingController {
         return meetingService.findById(id);
     }
 
-    @GetMapping("add/{date}")
-    public void addMeeting(@PathVariable("date") String date) throws CannotProceedException {
-        meetingService.add(date);
+    @GetMapping("add/{start}")
+    public void addMeeting(@PathVariable("start") String start) throws CannotProceedException {
+        meetingService.add(start);
     }
 }
