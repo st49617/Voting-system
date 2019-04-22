@@ -1,16 +1,14 @@
 package cz.upce.votingsystemapplication.controller;
 
-import cz.upce.votingsystemapplication.entity.Meeting;
+import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Date;
+import javax.naming.CannotProceedException;
 import java.util.List;
 
 @RestController
@@ -35,7 +33,7 @@ public class MeetingController {
     }
 
     @GetMapping("add/{date}")
-    public void addMeeting(@PathVariable("date") String date) {
+    public void addMeeting(@PathVariable("date") String date) throws CannotProceedException {
         meetingService.add(date);
     }
 }

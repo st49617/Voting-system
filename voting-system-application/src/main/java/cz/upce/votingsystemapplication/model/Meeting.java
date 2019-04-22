@@ -1,4 +1,4 @@
-package cz.upce.votingsystemapplication.entity;
+package cz.upce.votingsystemapplication.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
