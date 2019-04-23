@@ -28,14 +28,14 @@ public class MeetingService {
         this.meetingDAO = meetingDAO;
     }
 
-    public void add(String date) throws CannotProceedException {
-        Pattern tagRegex = Pattern.compile("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$");
-        Matcher matcher = tagRegex.matcher(date);
+    public void add(String start) throws CannotProceedException {
+        Pattern tagRegex = Pattern.compile("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])-(0[0-9]|1[0-9]|2[0-3]|[0-9])-[0-5][0-9])$");
+        Matcher matcher = tagRegex.matcher(start);
 
         if (matcher.matches())
-            meetingDAO.save(new Meeting(date));
+            meetingDAO.save(new Meeting(start));
         else
-            throw new CannotProceedException("Format of the date should be yyyy-mm-dd");
+            throw new CannotProceedException("Format of start should be YYYY-MM-DD-hh-mm");
     }
 
     public Meeting findById(long id) {

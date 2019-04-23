@@ -12,15 +12,15 @@ public class Meeting {
     private long id;
 
     @NotEmpty
-    private String date;
+    private String start;
 
     @OneToMany(mappedBy = "id")
     private List<Suggestion> suggestions;
 
     public Meeting() {}
 
-    public Meeting(@NotEmpty String date) {
-        this.date = date;
+    public Meeting(@NotEmpty String start) {
+        this.start = start;
     }
 
     public long getId() {
@@ -31,12 +31,12 @@ public class Meeting {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getStart() {
+        return start;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStart(String start) {
+        this.start = start;
     }
 
     public List<Suggestion> getSuggestions() {
