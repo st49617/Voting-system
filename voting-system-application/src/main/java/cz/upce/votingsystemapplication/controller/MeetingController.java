@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.CannotProceedException;
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class MeetingController {
     }
 
     @GetMapping("add/{start}")
-    public void addMeeting(@PathVariable("start") String start) throws CannotProceedException {
+    public void addMeeting(@PathVariable("start") String start) throws CannotProceedException, ParseException {
         meetingService.add(start);
     }
 }
