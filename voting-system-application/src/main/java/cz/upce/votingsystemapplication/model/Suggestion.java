@@ -1,6 +1,5 @@
 package cz.upce.votingsystemapplication.model;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,16 +14,14 @@ public class Suggestion {
     private long id;
 
     private String content;
-    private List<Tag> tags;
-    private Meeting meeting;
+    private Long meetingId;
 
     //true = accepted, false = rejected, null = not decided yet
     private Boolean accepted;
 
-    public Suggestion(@NotEmpty String content, List<Tag> tags, Meeting meeting) {
+    public Suggestion(@NotEmpty String content,@NotEmpty Long meetingId) {
         this.content = content;
-        this.tags = tags;
-        this.meeting = meeting;
+        this.meetingId = meetingId;
         this.accepted = null;
     }
 
@@ -44,20 +41,12 @@ public class Suggestion {
         this.content = content;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Long getMeetingId() {
+        return meetingId;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public Meeting getMeeting() {
-        return meeting;
-    }
-
-    public void setMeeting(Meeting meeting) {
-        this.meeting = meeting;
+    public void setMeetingId(Long meetingId) {
+        this.meetingId = meetingId;
     }
 
     public Boolean getAccepted() {
