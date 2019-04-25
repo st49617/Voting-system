@@ -1,6 +1,9 @@
 # Voting-system
 Systém pro hlasování zastupitelstvo města
 
+## Zadání
+[Systém pro hlasování zastupitelstvo města](https://drive.google.com/file/d/1DdG2Llw376lCCrdeZjT5QZT4FvULFeLy/view)
+
 ## Struktura projektu
 V root složce jsou podložky pro jednotlivé aplikace
 pro tvoření dalších aplikací zachovejte stejnou struktu balíčků, domény atd.
