@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.controller;
 
+import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
 import cz.upce.votingsystemapplication.service.SuggestionService;
 import java.util.List;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,17 +30,20 @@ public class SuggestionController {
   }
 
   @GetMapping("get/{id}")
-  public Suggestion getSuggestion(@PathVariable Long id){
+  public SuggestionDto getSuggestion(@PathVariable Long id){
     return suggestionService.findById(id);
   }
 
   @GetMapping("get/meeting/{id}")
-  public List<Suggestion> getSuggestionsOnMeeting(@PathVariable Long id){
+  public List<SuggestionDto> getSuggestionsOnMeeting(@PathVariable Long id){
     return suggestionService.findAllSuggestionsOnMeeting(id);
   }
 
-  @PostMapping("add/{suggestion}")
-  public void addSuggestion(@PathVariable Suggestion suggestion){
+  /*
+    Jako parametr se pošle JSON se stejnými atributy, jako má Suggestion. Spring MVC si to už přemapuje sám.
+   */
+  @PostMapping("add")
+  public void addSuggestion(@RequestBody Suggestion suggestion){
     suggestionService.add(suggestion);
   }
 
@@ -57,8 +62,8 @@ public class SuggestionController {
     suggestionService.deleteById(id);
   }
 
-  @PostMapping("delete/{suggestion}")
-  public void deleteSuggestion(@PathVariable Suggestion suggestion){
+  @PostMapping("delete")
+  public void deleteSuggestion(@RequestBody Suggestion suggestion){
     suggestionService.delete(suggestion);
   }
 }
