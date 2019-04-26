@@ -39,7 +39,7 @@ Tady se budou postupně přidávat jednotlivé sekce pro jednotlivé entity a ur
 
 ### Voting entita
 
-###POST
+##### POST
 - `/add` - vkládá případně mění hlasování, 
 formát vkládaných dat:
 `{
@@ -50,7 +50,7 @@ formát vkládaných dat:
  <br />
  parametr `vote` nabývá hodnot `[ANO, NE, ZDRZEL]`
  
-###GET
+##### GET
 - `/get/{id}` - vrací nalezené hlasování podle zadaného id
 - `/get-all` - vrací seznam všech hlasování
 - `/get-user/{userId}` - vrací seznam všech hlasování pro vybraného uživatele
