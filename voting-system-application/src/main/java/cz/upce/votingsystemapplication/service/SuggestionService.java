@@ -2,7 +2,7 @@ package cz.upce.votingsystemapplication.service;
 
 import cz.upce.votingsystemapplication.dao.MeetingDAO;
 import cz.upce.votingsystemapplication.dao.SuggestionDao;
-import cz.upce.votingsystemapplication.model.Meeting;
+import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,32 +28,34 @@ public class SuggestionService {
     return suggestionDao.findAll();
   }
 
-  public Suggestion findById(Long id) {
+  public SuggestionDto findById(Long id) {
+
     if (suggestionDao.findById(id).isPresent()) {
-      return suggestionDao.findById(id).get();
+      Suggestion suggestion = suggestionDao.findById(id).get();
+      return mapSuggestionToDto(suggestion);
     } else {
-      //TODO i think logging a message and returning null value is better than throwing an exception
+      //i think logging a message and returning null value is better than throwing an exception
       LOGGER.log(Level.WARNING, String.format("Suggestion with id %d does not exist in the database.", id));
       return null;
     }
   }
 
-  public List<Suggestion> findAllSuggestionsOnMeeting(Long id){
+  public List<SuggestionDto> findAllSuggestionsOnMeeting(Long id){
+
     List<Suggestion> all = suggestionDao.findAll();
-    List<Suggestion> filtered = new ArrayList<>();
-    Meeting meeting = null;
-    try{
-      meeting = meetingDao.getOne(id);
-    } catch (Exception e) {
+    List<SuggestionDto> dtoOutList = new ArrayList<>();
+
+    all.removeIf(suggestion -> !suggestion.getMeetingId().equals(id));
+    if(all.isEmpty()) {
       LOGGER.log(Level.WARNING, String.format("Meeting with id %d does not exist in the database."
           + " So there are no suggestions for this meeting", id));
+      return null;
+    } else {
+      all.forEach(suggestion -> {
+        dtoOutList.add(mapSuggestionToDto(suggestion));
+      });
     }
-    for(Suggestion suggestion : all) {
-      if(meeting != null && suggestion.getMeeting() == meeting) {
-        filtered.add(suggestion);
-      }
-    }
-    return filtered;
+    return dtoOutList;
   }
 
   public void add(Suggestion suggestion) {
@@ -88,5 +90,16 @@ public class SuggestionService {
     Suggestion suggestion = suggestionDao.getOne(suggestionId);
     suggestion.setAccepted(b);
     suggestionDao.save(suggestion);
+  }
+
+  private SuggestionDto mapSuggestionToDto(Suggestion suggestion) {
+    SuggestionDto dtoOut = new SuggestionDto();
+    dtoOut.setId(suggestion.getId());
+    dtoOut.setContent(suggestion.getContent());
+    dtoOut.setAccepted(suggestion.getAccepted());
+
+    //FIXME just temporarily using dao
+    dtoOut.setMeeting(meetingDao.getOne(suggestion.getMeetingId()));
+    return dtoOut;
   }
 }
