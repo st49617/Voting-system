@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.text.ParseException;
 
 @Entity
 public class Meeting {
@@ -20,7 +19,7 @@ public class Meeting {
 
     public Meeting() {}
 
-    public Meeting(Timestamp start) throws ParseException {
+    public Meeting(Timestamp start) {
         this.start = start;
     }
 
