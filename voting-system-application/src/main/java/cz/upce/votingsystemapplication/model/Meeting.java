@@ -4,11 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 @Entity
 public class Meeting {
@@ -22,8 +20,8 @@ public class Meeting {
 
     public Meeting() {}
 
-    public Meeting(@NotEmpty String start) throws ParseException {
-        this.setStart(start);
+    public Meeting(Timestamp start) throws ParseException {
+        this.start = start;
     }
 
     public long getId() {
@@ -36,12 +34,5 @@ public class Meeting {
 
     public Timestamp getStart() {
         return start;
-    }
-
-    public void setStart(String start) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-        java.util.Date javaStart = format.parse(start);
-
-        this.start = new Timestamp(javaStart.getTime());
     }
 }
