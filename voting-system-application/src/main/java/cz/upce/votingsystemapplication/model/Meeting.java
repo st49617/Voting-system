@@ -1,13 +1,14 @@
 package cz.upce.votingsystemapplication.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 @Entity
 public class Meeting {
@@ -18,9 +19,6 @@ public class Meeting {
 
     @NotNull
     private Timestamp start;
-
-    @OneToMany(mappedBy = "id")
-    private List<Suggestion> suggestions;
 
     public Meeting() {}
 
@@ -45,13 +43,5 @@ public class Meeting {
         java.util.Date javaStart = format.parse(start);
 
         this.start = new Timestamp(javaStart.getTime());
-    }
-
-    public List<Suggestion> getSuggestions() {
-        return suggestions;
-    }
-
-    public void setSuggestions(List<Suggestion> suggestions) {
-        this.suggestions = suggestions;
     }
 }
