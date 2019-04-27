@@ -19,7 +19,10 @@ public class Suggestion {
     //true = accepted, false = rejected, null = not decided yet
     private Boolean accepted;
 
-    public Suggestion(@NotEmpty String content,@NotEmpty Long meetingId) {
+    public Suggestion() {
+    }
+
+    public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId) {
         this.content = content;
         this.meetingId = meetingId;
         this.accepted = null;
