@@ -1,10 +1,8 @@
 package cz.upce.votingsystemapplication.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 public class Suggestion {
@@ -17,12 +15,18 @@ public class Suggestion {
     private Long meetingId;
 
     //true = accepted, false = rejected, null = not decided yet
-    private Boolean accepted;
+    private boolean accepted;
 
-    public Suggestion(@NotEmpty String content,@NotEmpty Long meetingId) {
+    @OneToMany(mappedBy = "suggestion")
+    private List<Tag> tags;
+
+    public Suggestion() {
+    }
+
+    public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId) {
         this.content = content;
         this.meetingId = meetingId;
-        this.accepted = null;
+        this.accepted = true;
     }
 
     public long getId() {
@@ -49,11 +53,11 @@ public class Suggestion {
         this.meetingId = meetingId;
     }
 
-    public Boolean getAccepted() {
+    public boolean getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Boolean accepted) {
+    public void setAccepted(boolean accepted) {
         this.accepted = accepted;
     }
 }
