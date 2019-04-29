@@ -2,7 +2,6 @@ package cz.upce.votingsystemapplication.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 public class Suggestion {
@@ -15,10 +14,7 @@ public class Suggestion {
     private Long meetingId;
 
     //true = accepted, false = rejected, null = not decided yet
-    private boolean accepted;
-
-    @OneToMany(mappedBy = "suggestion")
-    private List<Tag> tags;
+    private Boolean accepted;
 
     public Suggestion() {
     }
@@ -26,7 +22,13 @@ public class Suggestion {
     public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId) {
         this.content = content;
         this.meetingId = meetingId;
-        this.accepted = true;
+        this.accepted = null;
+    }
+
+    public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId, Boolean accepted) {
+        this.content = content;
+        this.meetingId = meetingId;
+        this.accepted = accepted;
     }
 
     public long getId() {
