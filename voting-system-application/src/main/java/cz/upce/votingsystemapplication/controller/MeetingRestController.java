@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.controller;
 
+import cz.upce.votingsystemapplication.dto.MeetingDto;
 import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +19,22 @@ public class MeetingRestController {
     }
 
     @GetMapping("get-all")
-    public List<Meeting> getAllMeetings() {
+    public List<MeetingDto> getAllMeetings() {
         return meetingService.findAll();
     }
 
     @GetMapping("get/{id}")
-    public Meeting getMeetingById(@PathVariable Long id) {
+    public MeetingDto getMeetingById(@PathVariable Long id) {
         return meetingService.findById(id);
     }
 
     @PostMapping("add")
     public void addMeeting(@RequestBody Meeting meeting) {
         meetingService.add(meeting);
+    }
+
+    @DeleteMapping("delete/{id}")
+    public void deleteMeetingById(@PathVariable Long id){
+        meetingService.deleteById(id);
     }
 }
