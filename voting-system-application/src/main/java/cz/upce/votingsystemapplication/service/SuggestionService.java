@@ -1,6 +1,6 @@
 package cz.upce.votingsystemapplication.service;
 
-import cz.upce.votingsystemapplication.dao.MeetingDAO;
+import cz.upce.votingsystemapplication.dao.MeetingDao;
 import cz.upce.votingsystemapplication.dao.SuggestionDao;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class SuggestionService {
 
   private SuggestionDao suggestionDao;
-  private MeetingDAO meetingDao;
+  private MeetingDao meetingDao;
   private final static Logger LOGGER = Logger.getLogger(SuggestionService.class.getName());
 
   @Autowired
-  public SuggestionService(SuggestionDao suggestionDao, MeetingDAO meetingDao) {
+  public SuggestionService(SuggestionDao suggestionDao, MeetingDao meetingDao) {
     this.meetingDao = meetingDao;
     this.suggestionDao = suggestionDao;
   }
