@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.controller;
 
+import cz.upce.votingsystemapplication.dto.UserDto;
 import cz.upce.votingsystemapplication.model.User;
 import cz.upce.votingsystemapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,12 @@ public class UserRestController {
     }
 
     @GetMapping("get/{id}")
-    public User getUser(@PathVariable("id") Long id) {
+    public UserDto getUser(@PathVariable("id") Long id) {
         return userService.getUser(id);
     }
 
     @GetMapping("get-all")
-    public List<User> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
