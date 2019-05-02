@@ -1,10 +1,12 @@
 package cz.upce.votingsystemapplication.controller;
 
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
+import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
 import cz.upce.votingsystemapplication.service.SuggestionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,17 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/suggestions")
-public class SuggestionController {
+@RequestMapping(value = "api/suggestion")
+public class SuggestionRestController {
 
   private final SuggestionService suggestionService;
 
   @Autowired
-  public SuggestionController(SuggestionService suggestionService) {
+  public SuggestionRestController(SuggestionService suggestionService) {
     this.suggestionService = suggestionService;
   }
 
-  @GetMapping
+  @GetMapping("get-all")
   public List<Suggestion> getAllSuggestions()
   {
     return suggestionService.findAll();
@@ -35,7 +37,7 @@ public class SuggestionController {
   }
 
   @GetMapping("get/meeting/{id}")
-  public List<SuggestionDto> getSuggestionsOnMeeting(@PathVariable Long id){
+  public List<SuggestionForMeetingDto> getSuggestionsOnMeeting(@PathVariable Long id){
     return suggestionService.findAllSuggestionsOnMeeting(id);
   }
 
@@ -57,12 +59,12 @@ public class SuggestionController {
     suggestionService.markAsRejected(id);
   }
 
-  @PostMapping("delete/{id}")
+  @DeleteMapping("delete/{id}")
   public void deleteSuggestionById(@PathVariable Long id){
     suggestionService.deleteById(id);
   }
 
-  @PostMapping("delete")
+  @DeleteMapping("delete")
   public void deleteSuggestion(@RequestBody Suggestion suggestion){
     suggestionService.delete(suggestion);
   }
