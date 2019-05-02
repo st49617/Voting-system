@@ -1,6 +1,7 @@
 package cz.upce.votingsystemapplication.controller;
 
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
+import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
 import cz.upce.votingsystemapplication.service.SuggestionService;
 import java.util.List;
@@ -36,7 +37,7 @@ public class SuggestionRestController {
   }
 
   @GetMapping("get/meeting/{id}")
-  public List<SuggestionDto> getSuggestionsOnMeeting(@PathVariable Long id){
+  public List<SuggestionForMeetingDto> getSuggestionsOnMeeting(@PathVariable Long id){
     return suggestionService.findAllSuggestionsOnMeeting(id);
   }
 
