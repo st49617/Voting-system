@@ -16,7 +16,7 @@ public class TagService {
     @Autowired
     private TagDAO tagDAO;
 
-    ModelMapper modelMapper=new ModelMapper();
+    ModelMapper modelMapper = new ModelMapper();
 
     public void addTag(Tag tag) {
         tagDAO.save(tag);
@@ -29,14 +29,17 @@ public class TagService {
 
     public List<TagDto> getAllTag() {
         List<Tag> all = tagDAO.findAll();
-        return modelMapper.map(all,new TypeToken<List<TagDto>>() {}.getType());
+        return modelMapper.map(all, new TypeToken<List<TagDto>>() {
+        }.getType());
     }
 
     public void deleteTag(Long id) {
         tagDAO.deleteById(id);
     }
 
-    public TagDto findBySuggestion_Id(Long id) {
-       Tag tagOnSuggestion = tagDAO.findOneBySuggestion_Id(id);
-      return tagOnSuggestion==null?null: modelMapper.map(tagOnSuggestion, TagDto.class);}
+    public List<TagDto> findBySuggestion_Id(Long id) {
+        List<Tag> tagOnSuggestion = tagDAO.findBySuggestion_Id(id);
+        return tagOnSuggestion == null ? null : modelMapper.map(tagOnSuggestion, new TypeToken<List<TagDto>>() {
+        }.getType());
+    }
 }

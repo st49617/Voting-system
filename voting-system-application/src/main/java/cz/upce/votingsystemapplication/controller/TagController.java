@@ -35,7 +35,7 @@ public class TagController {
         }
 
     @GetMapping("get-tag/{suggestionId}")
-        private TagDto  getTagOnSuggestion(@PathVariable Long suggestionId){
+        private List<TagDto>  getTagOnSuggestion(@PathVariable Long suggestionId){
          return tagService.findBySuggestion_Id(suggestionId);
     }
 }
