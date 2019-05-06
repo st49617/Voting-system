@@ -55,7 +55,7 @@ public class Suggestion {
         this.meetingId = meetingId;
     }
 
-    public boolean getAccepted() {
+    public Boolean getAccepted() {
         return accepted;
     }
 

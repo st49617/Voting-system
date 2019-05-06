@@ -4,8 +4,8 @@
             <v-flex lg6 md6 sm12 px-5>
                 <v-card>
                     <v-card-title primary-title>
-                        <v-layout align-center justify-start>
-                            <v-flex class="headline mb-0 text-xs-left">
+                        <v-layout align-center justify-start column-sm-and-down>
+                            <v-flex class="headline mb-0 mr-2 text-xs-left">
                                 <!--<span> -->
                                 Zastupitelstvo
                                 <!--</span>-->
@@ -14,34 +14,31 @@
                                 <!--</p>-->
                                 <!--</div>-->
                             </v-flex>
-                            <v-flex>
+                            <v-flex lg12 class="text-xs-left">
                                 <v-select
                                         v-model="selectedMeeting"
                                         :items="this.meetingsItems"
-                                        label="Zastupitelstvo"
+                                        label="Datum a čas"
                                         item-text="start"
                                         return-object
                                 ></v-select>
                             </v-flex>
                         </v-layout>
+                    </v-card-title>
+                    <v-card-text>
                         <v-layout column>
                             <v-flex>
-                                <v-data-table :items="this.suggestionsList" :headers="headers" hide-actions="true">
+                                <v-data-table :items="this.suggestionsList" :headers="headers" hide-actions>
                                     <template v-slot:items="suggestion">
                                         <td class="text-xs-left">{{ suggestion.item.content }}</td>
-                                        <td class="text-xs-left">{{ (suggestion.item.accepted)?"Přijato" :"Zamítnuto"
-                                            }}
-                                        </td>
-                                        <!--<td class="text-xs-right">{{ props.item.calories }}</td>-->
-                                        <!--<td class="text-xs-right">{{ props.item.fat }}</td>-->
-                                        <!--<td class="text-xs-right">{{ props.item.carbs }}</td>-->
-                                        <!--<td class="text-xs-right">{{ props.item.protein }}</td>-->
-                                        <!--<td class="text-xs-right">{{ props.item.iron }}</td>-->
+                                        <!--<td class="text-xs-left">{{ (suggestion.item.accepted) ? "Přijato" : "Zamítnuto"}}-->
+                                        <td class="text-xs-left" v-html="getSuggestionResultText(suggestion.item)"></td>
                                     </template>
                                 </v-data-table>
                             </v-flex>
                         </v-layout>
-                    </v-card-title>
+
+                    </v-card-text>
 
                     <v-card-actions>
                         <v-layout justify-space-around>
@@ -99,6 +96,16 @@
                 getAllMeetings().then(response => {
                     this.meetings = response.data;
                 });
+            },
+            getSuggestionResultText: function (suggestion) {
+                if (suggestion.accepted === null) {
+                    return '<span>Hlasování zatím neproběhlo</span>'
+                }
+
+                if (suggestion.accepted === true) {
+                    return '<span class="primary--text">Přijato</span>'
+                }
+                return '<span class="error--text">Zamítnuto</span>'
             },
             backToMenu: function () {
                 this.$router.push({name: 'Menu'});
