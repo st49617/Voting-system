@@ -40,13 +40,11 @@ public class MeetingRestController {
     }
 
     @DeleteMapping("delete/{id}")
-    public String deleteMeetingById(@PathVariable Long id){
-        try {
-            meetingService.deleteById(id);
-        } catch (Exception ex) {
-            return "ERROR:\n" + ex.getMessage();
-        }
+    public MeetingDto deleteMeetingById(@PathVariable Long id){
+        MeetingDto removed = meetingService.findById(id);
 
-        return "OK";
+        meetingService.deleteById(id);
+
+        return removed;
     }
 }
