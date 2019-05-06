@@ -45,27 +45,52 @@ public class SuggestionRestController {
     Jako parametr se pošle JSON se stejnými atributy, jako má Suggestion. Spring MVC si to už přemapuje sám.
    */
   @PostMapping("add")
-  public void addSuggestion(@RequestBody Suggestion suggestion){
-    suggestionService.add(suggestion);
+  public String addSuggestion(@RequestBody Suggestion suggestion){
+    try {
+      suggestionService.add(suggestion);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "OK";
   }
 
   @PostMapping("markAsAccepted/{id}")
-  public void markAsAccepted(@PathVariable Long id) {
-    suggestionService.markAsAccepted(id);
+  public String markAsAccepted(@PathVariable Long id) {
+    try{
+      suggestionService.markAsAccepted(id);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "OK";
   }
 
   @PostMapping("markAsRejected/{id}")
-  public void markAsRejected(@PathVariable Long id) {
-    suggestionService.markAsRejected(id);
+  public String markAsRejected(@PathVariable Long id) {
+    try{
+      suggestionService.markAsRejected(id);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "OK";
   }
 
   @DeleteMapping("delete/{id}")
-  public void deleteSuggestionById(@PathVariable Long id){
-    suggestionService.deleteById(id);
+  public String deleteSuggestionById(@PathVariable Long id){
+    try {
+      suggestionService.deleteById(id);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "OK";
   }
 
   @DeleteMapping("delete")
-  public void deleteSuggestion(@RequestBody Suggestion suggestion){
-    suggestionService.delete(suggestion);
+  public String deleteSuggestion(@RequestBody Suggestion suggestion){
+    try {
+      suggestionService.delete(suggestion);
+    } catch (Exception e) {
+      return e.getMessage();
+    }
+    return "OK";
   }
 }

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class VotingSystemApplication {
 
+    
     @Bean
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
@@ -17,6 +18,7 @@ public class VotingSystemApplication {
 
         return registrationBean;
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(VotingSystemApplication.class, args);
