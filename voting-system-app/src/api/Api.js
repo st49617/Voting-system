@@ -4,7 +4,6 @@ const SERVER_URL = 'http://localhost:8080';
 
 const instance = axios.create({
     baseURL: SERVER_URL,
-    timeout: 1000,
     timeout: 30000,
     withCredentials: true,
     // headers: {
@@ -35,12 +34,12 @@ export const userLogin = function (credentials) {
 };
 
 
-export const createNew = function (meeting) {
+export const createNewMeeting = function (meeting) {
     let token = getToken();
     return instance.post('api/meeting/add', meeting, {headers: {'Authorization': "Bearer " + token}})
 };
 
-export const get = function () {
+export const getAllMeetings = function () {
     let token = getToken();
     return instance.get('api/meeting/get-all', {headers: {'Authorization': "Bearer " + token}})
 };
