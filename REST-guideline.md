@@ -55,3 +55,18 @@ formát vkládaných dat:
 - `/get-all` - vrací seznam všech hlasování
 - `/get-user/{userId}` - vrací seznam všech hlasování pro vybraného uživatele
 - `/get-suggestion/{suggestionId}` - vrací seznam všech hlasování pro vybraný návrh
+
+### Meeting entita
+Meeting (zasedani) predstavuje schuzi zastupitelstva.
+Je reprezentovan svym DTO (::MeetingDto), jehoz soucasti je seznam bodu jednani (::List<SuggestionForMeetingDto>).
+
+##### POST
+- `/add` - vlozeni/zmena meetingu, format:
+'{
+	"timeStamp":Timestamp
+}'
+
+##### GET
+- `/get/{id}`		- vraci zasedani podle zadaneho id
+- `/get-all`		- vraci seznam vsech zasedani
+- `/delete/{id}`	- maze zasedani podle zadaneho id

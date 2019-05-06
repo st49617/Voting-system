@@ -2,10 +2,12 @@ package cz.upce.votingsystemapplication.service;
 
 import cz.upce.votingsystemapplication.dao.MeetingDao;
 import cz.upce.votingsystemapplication.dto.MeetingDto;
-import cz.upce.votingsystemapplication.dto.SuggestionDto;
+import cz.upce.votingsystemapplication.dto.MeetingForSuggestionDto;
+import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Meeting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -17,8 +19,13 @@ public class MeetingService {
     private SuggestionService suggestionService;
 
     @Autowired
-    public MeetingService(MeetingDao meetingDAO, SuggestionService suggestionService) {
+    public MeetingService(MeetingDao meetingDAO) {
         this.meetingDAO = meetingDAO;
+    }
+
+    // Setter-based DI - kvuli Spring ochrane proti cyklickym zavislostem. V konstruktoru nelze -> nemenit!
+    @Autowired
+    public void setSuggestionService(SuggestionService suggestionService) {
         this.suggestionService = suggestionService;
     }
 
@@ -29,6 +36,14 @@ public class MeetingService {
     public MeetingDto findById(long id) {
         if (meetingDAO.findById(id).isPresent()) {
             return mapMeetingToDto(meetingDAO.findById(id).get());
+        } else {
+            throw new NoSuchElementException("No such meeting.");
+        }
+    }
+
+    public MeetingForSuggestionDto findByIdForSuggestion(long id) {
+        if (meetingDAO.findById(id).isPresent()) {
+            return mapMeetingToDtoForSuggestion(meetingDAO.findById(id).get());
         } else {
             throw new NoSuchElementException("No such meeting.");
         }
@@ -53,7 +68,7 @@ public class MeetingService {
     }
 
     private MeetingDto mapMeetingToDto(Meeting meeting) {
-        List<SuggestionDto> suggestions;
+        List<SuggestionForMeetingDto> suggestions;
         try {
             suggestions = new LinkedList<>(suggestionService.findAllSuggestionsOnMeeting(meeting.getId()));
         } catch (NullPointerException npex) {
@@ -61,5 +76,9 @@ public class MeetingService {
         }
 
         return new MeetingDto(meeting.getId(), meeting.getStart(), suggestions);
+    }
+
+    private MeetingForSuggestionDto mapMeetingToDtoForSuggestion(Meeting meeting) {
+        return new MeetingForSuggestionDto(meeting.getId(), meeting.getStart());
     }
 }
