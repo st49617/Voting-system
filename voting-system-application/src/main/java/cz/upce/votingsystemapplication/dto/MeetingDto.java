@@ -3,39 +3,21 @@ package cz.upce.votingsystemapplication.dto;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class MeetingDto {
+public class MeetingDto extends MeetingForSuggestionDto {
 
-    private long id;
-    private Timestamp start;
-    private List<SuggestionDto> suggestions;
+    private List<SuggestionForMeetingDto> suggestions;
 
-    public MeetingDto(long id, Timestamp start, List<SuggestionDto> suggestions) {
-        this.id = id;
-        this.start = start;
+    public MeetingDto(long id, Timestamp start, List<SuggestionForMeetingDto> suggestions) {
+        super(id, start);
+
         this.suggestions = suggestions;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Timestamp getStart() {
-        return start;
-    }
-
-    public void setStart(Timestamp start) {
-        this.start = start;
-    }
-
-    public List<SuggestionDto> getSuggestions() {
+    public List<SuggestionForMeetingDto> getSuggestions() {
         return suggestions;
     }
 
-    public void setSuggestions(List<SuggestionDto> suggestions) {
+    public void setSuggestions(List<SuggestionForMeetingDto> suggestions) {
         this.suggestions = suggestions;
     }
 }

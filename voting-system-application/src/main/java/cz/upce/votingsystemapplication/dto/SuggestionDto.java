@@ -1,53 +1,24 @@
 package cz.upce.votingsystemapplication.dto;
 
-import cz.upce.votingsystemapplication.model.Meeting;
+public class SuggestionDto extends SuggestionForMeetingDto {
 
-public class SuggestionDto {
-
-  private long id;
-  private String content;
-  private Meeting meeting;
-  private Boolean accepted;
+  private MeetingForSuggestionDto meeting;
 
   public SuggestionDto(){
+    super();
   }
 
-  public SuggestionDto(long id, String content, Meeting meeting, Boolean accepted) {
-    this.id = id;
-    this.content = content;
+  public SuggestionDto(long id, String content, MeetingForSuggestionDto meeting, Boolean accepted) {
+    super(id, content, accepted);
+
     this.meeting = meeting;
-    this.accepted = accepted;
   }
 
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }
-
-  public String getContent() {
-    return content;
-  }
-
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  public Meeting getMeeting() {
+  public MeetingForSuggestionDto getMeeting() {
     return meeting;
   }
 
-  public void setMeeting(Meeting meeting) {
+  public void setMeeting(MeetingForSuggestionDto meeting) {
     this.meeting = meeting;
-  }
-
-  public Boolean getAccepted() {
-    return accepted;
-  }
-
-  public void setAccepted(Boolean accepted) {
-    this.accepted = accepted;
   }
 }

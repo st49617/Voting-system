@@ -1,8 +1,8 @@
 package cz.upce.votingsystemapplication.service;
 
-import cz.upce.votingsystemapplication.dao.MeetingDao;
 import cz.upce.votingsystemapplication.dao.SuggestionDao;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
+import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 public class SuggestionService {
 
   private SuggestionDao suggestionDao;
-  private MeetingDao meetingDao;
+  private MeetingService meetingService;
   private final static Logger LOGGER = Logger.getLogger(SuggestionService.class.getName());
 
   @Autowired
-  public SuggestionService(SuggestionDao suggestionDao, MeetingDao meetingDao) {
-    this.meetingDao = meetingDao;
+  public SuggestionService(SuggestionDao suggestionDao, MeetingService meetingService) {
+    this.meetingService = meetingService;
     this.suggestionDao = suggestionDao;
   }
 
@@ -40,10 +40,10 @@ public class SuggestionService {
     }
   }
 
-  public List<SuggestionDto> findAllSuggestionsOnMeeting(Long id){
+  public List<SuggestionForMeetingDto> findAllSuggestionsOnMeeting(Long id){
 
     List<Suggestion> all = suggestionDao.findAll();
-    List<SuggestionDto> dtoOutList = new ArrayList<>();
+    List<SuggestionForMeetingDto> dtoOutList = new ArrayList<>();
 
     all.removeIf(suggestion -> !suggestion.getMeetingId().equals(id));
     if(all.isEmpty()) {
@@ -52,7 +52,7 @@ public class SuggestionService {
       return null;
     } else {
       all.forEach(suggestion -> {
-        dtoOutList.add(mapSuggestionToDto(suggestion));
+        dtoOutList.add(mapSuggestionToDtoForMeeting(suggestion));
       });
     }
     return dtoOutList;
@@ -98,8 +98,16 @@ public class SuggestionService {
     dtoOut.setContent(suggestion.getContent());
     dtoOut.setAccepted(suggestion.getAccepted());
 
-    //FIXME just temporarily using dao
-    dtoOut.setMeeting(meetingDao.getOne(suggestion.getMeetingId()));
+    dtoOut.setMeeting(meetingService.findByIdForSuggestion(suggestion.getMeetingId()));
+    return dtoOut;
+  }
+
+  private SuggestionForMeetingDto mapSuggestionToDtoForMeeting(Suggestion suggestion) {
+    SuggestionForMeetingDto dtoOut = new SuggestionForMeetingDto();
+    dtoOut.setId(suggestion.getId());
+    dtoOut.setContent(suggestion.getContent());
+    dtoOut.setAccepted(suggestion.getAccepted());
+
     return dtoOut;
   }
 }

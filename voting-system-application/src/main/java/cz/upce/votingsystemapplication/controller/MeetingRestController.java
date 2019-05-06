@@ -29,12 +29,22 @@ public class MeetingRestController {
     }
 
     @PostMapping("add")
-    public void addMeeting(@RequestBody Meeting meeting) {
-        meetingService.add(meeting);
+    public String addMeeting(@RequestBody Meeting meeting) {
+        try {
+            meetingService.add(meeting);
+        } catch (Exception ex) {
+            return "ERROR:\n" + ex.getMessage();
+        }
+
+        return "OK";
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteMeetingById(@PathVariable Long id){
+    public MeetingDto deleteMeetingById(@PathVariable Long id){
+        MeetingDto removed = meetingService.findById(id);
+
         meetingService.deleteById(id);
+
+        return removed;
     }
 }
