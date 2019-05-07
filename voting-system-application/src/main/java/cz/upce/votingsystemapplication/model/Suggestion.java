@@ -59,7 +59,7 @@ public class Suggestion {
         return accepted;
     }
 
-    public void setAccepted(boolean accepted) {
+    public void setAccepted(Boolean accepted) {
         this.accepted = accepted;
     }
 }

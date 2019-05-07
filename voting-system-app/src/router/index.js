@@ -29,12 +29,14 @@ export default new Router({
         {
             path: '/meeting',
             name: 'Meeting',
-            component: Meeting
+            component: Meeting,
+            props: true
         },
         {
             path: '/suggestion',
             name: 'Suggestion',
-            component: Suggestion
+            component: Suggestion,
+            props: true
         },
         {
             path: '/user-statistic',

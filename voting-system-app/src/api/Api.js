@@ -39,7 +39,16 @@ export const createNewMeeting = function (meeting) {
     return instance.post('api/meeting/add', meeting, {headers: {'Authorization': "Bearer " + token}})
 };
 
+
 export const getAllMeetings = function () {
     let token = getToken();
     return instance.get('api/meeting/get-all', {headers: {'Authorization': "Bearer " + token}})
+};
+
+export const getSuggestion = function (suggestionId) {
+    return instance.get('api/suggestion/get/' + suggestionId);
+};
+
+export const addSugesstion = function (suggestion) {
+    return instance.post('api/suggestion/add', suggestion);
 };

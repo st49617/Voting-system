@@ -24,8 +24,11 @@
                             <v-flex>
                                 <v-data-table :items="this.suggestionsList" :headers="headers" hide-actions>
                                     <template v-slot:items="suggestion">
-                                        <td class="text-xs-left">{{ suggestion.item.content }}</td>
-                                        <td class="text-xs-left" v-html="getSuggestionResultText(suggestion.item)"></td>
+                                        <td @click="goToSuggestion(suggestion.item.id)" class="text-xs-left">
+                                            {{ suggestion.item.content }}
+                                        </td>
+                                        <td @click="goToSuggestion(suggestion.item.id)" class="text-xs-left"
+                                            v-html="getSuggestionResultText(suggestion.item)"></td>
                                     </template>
                                 </v-data-table>
                             </v-flex>
@@ -33,8 +36,8 @@
 
                     </v-card-text>
 
-                    <v-card-actions>
-                        <v-layout justify-space-around>
+                    <v-card-actions class="pa-3">
+                        <v-layout justify-space-between>
                             <v-btn @click="backToMenu()" color="primary">Zpět</v-btn>
                             <v-btn @click="goToSuggestion()" color="primary">Bod programu</v-btn>
                         </v-layout>
@@ -51,6 +54,7 @@
 
     export default {
         name: 'Meeting',
+        props: ['meetingId'],
         data() {
             return {
                 meetings: [],
@@ -76,7 +80,6 @@
                 return items;
             },
             suggestionsList: function () {
-                console.log(this.selectedMeeting);
                 if (this.selectedMeeting != null && this.selectedMeeting.suggestions.length > 0) {
                     return this.selectedMeeting.suggestions;
                 } else {
@@ -88,6 +91,12 @@
             init: function () {
                 getAllMeetings().then(response => {
                     this.meetings = response.data;
+//                    if (this.meetingId !== undefined) {
+                    let meetingId = this.meetingId;
+                    this.selectedMeeting = this.meetings.filter(function (meeting) {
+                        return (meeting.id === meetingId);
+                    })[0];
+//                    }
                 });
             },
             getSuggestionResultText: function (suggestion) {
@@ -103,12 +112,18 @@
             backToMenu: function () {
                 this.$router.push({name: 'Menu'});
             },
-            goToSuggestion: function () {
-                this.$router.push({name: 'Suggestion'});
+            goToSuggestion: function (suggestionId) {
+                this.$router.push({
+                    name: 'Suggestion',
+                    params: {
+                        suggestionId: suggestionId,
+                    },
+                });
             }
         },
         mounted: function () {
-            this.init();
+            this.init()
+
         }
     }
 </script>
