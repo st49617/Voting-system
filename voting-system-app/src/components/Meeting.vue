@@ -4,15 +4,9 @@
             <v-flex lg6 md6 sm12 px-5>
                 <v-card>
                     <v-card-title primary-title>
-                        <v-layout align-center justify-start column-sm-and-down>
+                        <v-layout align-center justify-start>
                             <v-flex class="headline mb-0 mr-2 text-xs-left">
-                                <!--<span> -->
                                 Zastupitelstvo
-                                <!--</span>-->
-                                <!--<div class="headline mb-0 text-xs-left">-->
-                                <!--<p>-->
-                                <!--</p>-->
-                                <!--</div>-->
                             </v-flex>
                             <v-flex lg12 class="text-xs-left">
                                 <v-select
@@ -31,7 +25,6 @@
                                 <v-data-table :items="this.suggestionsList" :headers="headers" hide-actions>
                                     <template v-slot:items="suggestion">
                                         <td class="text-xs-left">{{ suggestion.item.content }}</td>
-                                        <!--<td class="text-xs-left">{{ (suggestion.item.accepted) ? "Přijato" : "Zamítnuto"}}-->
                                         <td class="text-xs-left" v-html="getSuggestionResultText(suggestion.item)"></td>
                                     </template>
                                 </v-data-table>
