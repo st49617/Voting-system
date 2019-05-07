@@ -14,7 +14,7 @@ public class VotingSystemApplication {
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
-        registrationBean.addUrlPatterns("/api/meeting/*");
+        registrationBean.addUrlPatterns("/api/voting/*");
 
         return registrationBean;
     }
