@@ -1,15 +1,17 @@
 package cz.upce.votingsystemapplication.dto;
 
+import cz.upce.votingsystemapplication.model.Suggestion.ACCEPTANCE;
+
 public class SuggestionForMeetingDto {
 
     private long id;
     private String content;
-    private Boolean accepted;
+    private ACCEPTANCE accepted;
 
     public SuggestionForMeetingDto(){
     }
 
-    public SuggestionForMeetingDto(long id, String content, Boolean accepted) {
+    public SuggestionForMeetingDto(long id, String content, ACCEPTANCE accepted) {
         this.id = id;
         this.content = content;
         this.accepted = accepted;
@@ -31,11 +33,11 @@ public class SuggestionForMeetingDto {
         this.content = content;
     }
 
-    public Boolean getAccepted() {
+    public ACCEPTANCE getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Boolean accepted) {
+    public void setAccepted(ACCEPTANCE accepted) {
         this.accepted = accepted;
     }
 }
