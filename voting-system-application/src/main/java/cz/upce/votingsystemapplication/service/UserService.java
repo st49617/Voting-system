@@ -43,6 +43,8 @@ public class UserService {
         Optional<User> foundUser = userDao.findById(id);
         if (foundUser.isPresent()) {
             userDao.delete(foundUser.get());
+        } else {
+            throw new RuntimeException("Uživatel se zadaným ID neexistuje");
         }
 
     }

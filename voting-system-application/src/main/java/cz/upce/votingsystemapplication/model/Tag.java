@@ -11,7 +11,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-@NotNull
+    @NotNull
     private String name;
 
     @NotNull
