@@ -7,9 +7,6 @@ public class MeetingForSuggestionDto {
     private long id;
     private Timestamp start;
 
-    MeetingForSuggestionDto() {
-    }
-
     public MeetingForSuggestionDto(long id, Timestamp start) {
         this.id = id;
         this.start = start;
