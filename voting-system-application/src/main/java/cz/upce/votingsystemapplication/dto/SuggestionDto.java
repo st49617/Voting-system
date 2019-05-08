@@ -1,5 +1,7 @@
 package cz.upce.votingsystemapplication.dto;
 
+import cz.upce.votingsystemapplication.model.Suggestion.ACCEPTANCE;
+
 public class SuggestionDto extends SuggestionForMeetingDto {
 
   private MeetingForSuggestionDto meeting;
@@ -8,7 +10,7 @@ public class SuggestionDto extends SuggestionForMeetingDto {
     super();
   }
 
-  public SuggestionDto(long id, String content, MeetingForSuggestionDto meeting, Boolean accepted) {
+  public SuggestionDto(long id, String content, MeetingForSuggestionDto meeting, ACCEPTANCE accepted) {
     super(id, content, accepted);
 
     this.meeting = meeting;
