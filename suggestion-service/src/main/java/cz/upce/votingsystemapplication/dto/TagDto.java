@@ -1,5 +1,7 @@
 package cz.upce.votingsystemapplication.dto;
 
+import cz.upce.votingsystemapplication.model.Suggestion;
+
 public class TagDto {
     private long id;
     private String name;

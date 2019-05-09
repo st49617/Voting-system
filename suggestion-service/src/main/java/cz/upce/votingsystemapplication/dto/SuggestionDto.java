@@ -1,5 +1,7 @@
 package cz.upce.votingsystemapplication.dto;
 
+import cz.upce.votingsystemapplication.model.Suggestion.ACCEPTANCE;
+
 public class SuggestionDto extends SuggestionForMeetingDto {
 
   private MeetingForSuggestionDto meeting;
