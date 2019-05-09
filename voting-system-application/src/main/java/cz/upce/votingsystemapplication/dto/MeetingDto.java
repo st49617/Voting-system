@@ -7,6 +7,9 @@ public class MeetingDto extends MeetingForSuggestionDto {
 
     private List<SuggestionForMeetingDto> suggestions;
 
+    public MeetingDto() {
+    }
+
     public MeetingDto(long id, Timestamp start, List<SuggestionForMeetingDto> suggestions) {
         super(id, start);
 

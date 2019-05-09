@@ -1,6 +1,5 @@
 package cz.upce.votingsystemapplication.dto;
 
-import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.model.Suggestion;
 
 public class TagDto {

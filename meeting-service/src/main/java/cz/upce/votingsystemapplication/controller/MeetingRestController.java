@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.controller;
 
+import cz.upce.votingsystemapplication.client.SuggestionClient;
 import cz.upce.votingsystemapplication.dto.MeetingDto;
 import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.service.MeetingService;

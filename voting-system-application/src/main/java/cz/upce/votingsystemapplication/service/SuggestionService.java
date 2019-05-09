@@ -1,6 +1,8 @@
 package cz.upce.votingsystemapplication.service;
 
+import cz.upce.votingsystemapplication.client.MeetingClient;
 import cz.upce.votingsystemapplication.dao.SuggestionDao;
+import cz.upce.votingsystemapplication.dto.MeetingForSuggestionDto;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
@@ -10,19 +12,23 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class SuggestionService {
 
   private SuggestionDao suggestionDao;
-  private MeetingService meetingService;
+  private MeetingClient meetingClient;
+
   private final static Logger LOGGER = Logger.getLogger(SuggestionService.class.getName());
 
   @Autowired
-  public SuggestionService(SuggestionDao suggestionDao, MeetingService meetingService) {
-    this.meetingService = meetingService;
+  public SuggestionService(SuggestionDao suggestionDao, MeetingClient meetingClient) {
     this.suggestionDao = suggestionDao;
+    this.meetingClient = meetingClient;
   }
 
   public List<Suggestion> findAll() {
@@ -101,7 +107,7 @@ public class SuggestionService {
     dtoOut.setContent(suggestion.getContent());
     dtoOut.setAccepted(suggestion.getAccepted());
 
-    dtoOut.setMeeting(meetingService.findByIdForSuggestion(suggestion.getMeetingId()));
+    dtoOut.setMeeting(meetingClient.get(suggestion.getMeetingId()));
     return dtoOut;
   }
 
