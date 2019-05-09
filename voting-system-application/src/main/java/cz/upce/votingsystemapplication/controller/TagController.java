@@ -9,14 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/tag")
+@RequestMapping(value = "api/tag")
 public class TagController {
 
         @Autowired
         TagService tagService;
 
         @PostMapping("add")
-        public void addTag(@RequestBody Tag tag) {tagService.addTag(tag);
+        public Tag addTag(@RequestBody Tag tag) {
+            return tagService.addTag(tag);
+        }
+
+        @PostMapping("add-tag-suggestion/{tagId}/{suggestionId}")
+        public String addTagToSuggestion(@PathVariable Long tagId, @PathVariable Long suggestionId) {
+            tagService.addTagToSugestion(tagId, suggestionId);
+            return "OK";
+        }
+
+        @PostMapping("remove-tag-suggestion/{tagId}/{suggestionId}")
+        public String removeTagToSuggestion(@PathVariable Long tagId, @PathVariable Long suggestionId) {
+            tagService.removeTagToSugestion(tagId, suggestionId);
+            return "OK";
         }
 
         @GetMapping("get/{id}")

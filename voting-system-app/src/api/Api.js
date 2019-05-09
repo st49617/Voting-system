@@ -71,3 +71,23 @@ export const getVotingForUser = function (userId) {
 export const getUser = function (userId) {
     return instance.get('api/user/get/' + userId);
 };
+
+export const getAllTags = function () {
+    return instance.get('api/tag/get-all/');
+};
+
+export const getAllTagsForSuggestion = function (suggestionId) {
+    return instance.get('api/tag/get-tag/' + suggestionId);
+};
+
+export const addTag = function (tag) {
+    return instance.post('api/tag/add/', tag);
+};
+
+export const addTagToSuggestion = function (tagId, suggestionId) {
+    return instance.post('api/tag/add-tag-suggestion/' + tagId + '/' + suggestionId);
+};
+
+export const removeTagToSuggestion = function (tagId, suggestionId) {
+    return instance.post('api/tag/remove-tag-suggestion/' + tagId + '/' + suggestionId);
+};
