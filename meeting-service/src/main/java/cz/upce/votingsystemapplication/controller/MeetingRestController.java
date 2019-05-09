@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/meeting")
+@RequestMapping
 public class MeetingRestController {
 
     private final MeetingService meetingService;

@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/user")
+@RequestMapping
 public class UserRestController {
 
     @Autowired

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @FeignClient(value = "suggestion-service", fallback = SuggestionClientFallback.class)
 public interface SuggestionClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "api/meeting/get/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "get/{id}")
     SuggestionDto findById(@PathVariable("id") Long suggestionId);
 }

@@ -16,7 +16,7 @@ repositories {
 dependencyManagement {
     imports {
         mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR1'
-        mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Greenwich.SR1"
+        mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Greenwich.SR1'
     }
 }
 
@@ -26,12 +26,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
+    compile 'org.springframework.cloud:spring-cloud-starter-config'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.5'
-    compile 'org.springframework.cloud:spring-cloud-starter-config'
-    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.2'
     compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+    compile 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 }
