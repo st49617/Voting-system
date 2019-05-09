@@ -18,15 +18,14 @@ public class Tag {
     private String color;
 
 
-    @NotNull
-    @ManyToOne
+    @ManyToMany
     @JoinColumn(name="suggestionId", nullable=false, updatable=false)
-    private Suggestion suggestion;//body jednani
+    private List<Suggestion> suggestion;//body jednani
 
     public Tag() {
     }
 
-    public Tag(@NotNull String name, @NotNull String color, @NotNull Suggestion suggestion) {
+    public Tag(@NotNull String name, @NotNull String color, List<Suggestion> suggestion) {
         this.name = name;
         this.color = color;
         this.suggestion = suggestion;
@@ -56,11 +55,11 @@ public class Tag {
         this.color = color;
     }
 
-    public Suggestion getSuggestion() {
+    public List<Suggestion> getSuggestion() {
         return suggestion;
     }
 
-    public void setSuggestion(Suggestion suggestion) {
+    public void setSuggestion(List<Suggestion> suggestion) {
         this.suggestion = suggestion;
     }
 
