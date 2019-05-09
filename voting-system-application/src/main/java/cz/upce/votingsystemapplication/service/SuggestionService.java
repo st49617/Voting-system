@@ -4,6 +4,7 @@ import cz.upce.votingsystemapplication.dao.SuggestionDao;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
+import cz.upce.votingsystemapplication.model.Suggestion.ACCEPTANCE;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,6 +68,7 @@ public class SuggestionService {
       suggestionDao.deleteById(id);
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, String.format("Suggestion with id %d could not be deleted.", id));
+      throw e;
     }
   }
 
@@ -75,20 +77,21 @@ public class SuggestionService {
       suggestionDao.delete(suggestion);
     } catch (Exception e) {
       LOGGER.log(Level.SEVERE, String.format("Suggestion with id %d could not be deleted.", suggestion.getId()));
+      throw e;
     }
   }
 
   public void markAsAccepted(Long suggestionId) {
-    markAcceptance(suggestionId, true);
+    markAcceptance(suggestionId, ACCEPTANCE.PRIJATO);
   }
 
   public void markAsRejected(Long suggestionId) {
-    markAcceptance(suggestionId, false);
+    markAcceptance(suggestionId, ACCEPTANCE.NEPRIJATO);
   }
 
-  private void markAcceptance(Long suggestionId, boolean b) {
+  private void markAcceptance(Long suggestionId, ACCEPTANCE acceptance) {
     Suggestion suggestion = suggestionDao.getOne(suggestionId);
-    suggestion.setAccepted(b);
+    suggestion.setAccepted(acceptance);
     suggestionDao.save(suggestion);
   }
 
