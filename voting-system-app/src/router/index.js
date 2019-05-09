@@ -41,7 +41,8 @@ export default new Router({
         {
             path: '/user-statistic',
             name: 'UserStatistic',
-            component: UserStatistic
+            component: UserStatistic,
+            props: true
         }
     ]
 })

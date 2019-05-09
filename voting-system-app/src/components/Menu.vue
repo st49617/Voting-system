@@ -7,7 +7,7 @@
                     <v-btn v-if="userIsLogged()" @click="goToVoting()" large color="primary">Hlasování</v-btn>
                     <v-btn v-if="userIsLogged()" @click="goToUserStatistic()" large color="primary">Statistiky</v-btn>
                     <v-btn @click="goToMeeting()" large color="primary">Předchozí zastupitelstva</v-btn>
-                    <v-btn @click="goToSuggestion()" large color="primary">Správa návrhů</v-btn>
+                    <v-btn @click="goToSuggestion()" large color="primary">Nový návrh</v-btn>
                     <!--<v-btn @click="pepa()" large color="primary">Správa návrhů</v-btn>-->
                 </v-layout>
             </v-flex>

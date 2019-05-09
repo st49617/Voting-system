@@ -52,3 +52,22 @@ export const getSuggestion = function (suggestionId) {
 export const addSugesstion = function (suggestion) {
     return instance.post('api/suggestion/add', suggestion);
 };
+
+export const addVoting = function (voting) {
+    let token = getToken();
+    return instance.post('api/voting/add', voting, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getVotingForSuggestion = function (suggestionId) {
+    let token = getToken();
+    return instance.get('api/voting/get-suggestion/' + suggestionId, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getVotingForUser = function (userId) {
+    let token = getToken();
+    return instance.get('api/voting/get-user/' + userId, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getUser = function (userId) {
+    return instance.get('api/user/get/' + userId);
+};

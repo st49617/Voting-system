@@ -27,6 +27,7 @@
                                         label="Text návrhu"
                                         value=""
                                         v-model="suggestion.content"
+                                        :readonly="readOnly()"
                                 ></v-textarea>
                             </v-flex>
                             <v-flex>
@@ -42,8 +43,9 @@
                                                   hide-details
                                                   label="Zastupitelstvo"
                                                   single-line
-                                                  item-text="start"
+                                                  item-text="formatedStart"
                                                   return-object
+                                                  :readonly="readOnly()"
                                         ></v-select>
                                     </v-flex>
                                     <v-flex class="pt-1">
@@ -52,12 +54,24 @@
                                 </v-layout>
 
                             </v-flex>
+                            <v-flex v-if="readOnly()">
+                                <v-data-table :items="this.votingsList" :headers="headers" hide-actions>
+                                    <template v-slot:items="voting">
+                                        <td class="text-xs-left" @click="goToUserStatistic(voting.item.user.id)">
+                                            {{voting.item.user.firstName}} {{voting.item.user.lastName}}
+                                        </td>
+                                        <td class="text-xs-left" @click="goToUserStatistic(voting.item.user.id)">
+                                            {{voting.item.vote}}
+                                        </td>
+                                    </template>
+                                </v-data-table>
+                            </v-flex>
                         </v-layout>
                     </v-card-text>
                     <v-card-actions class="pa-3">
                         <v-layout justify-space-between>
-                            <v-btn @click="backToMenu()" color="primary">Zpět</v-btn>
-                            <v-btn @click="saveSuggestion()" color="primary">Uložit</v-btn>
+                            <v-btn @click="backToMenu()" color="primary">Menu</v-btn>
+                            <v-btn @click="saveSuggestion()" v-if="!readOnly()" color="primary">Uložit</v-btn>
                             <!--<v-btn @click="goToMeeting()" color="primary">Zastupitelstvo</v-btn>-->
                             <!--<v-btn @click="goToUserStatistic()" color="primary">Statistika zastupitele</v-btn>-->
                         </v-layout>
@@ -70,7 +84,8 @@
 
 <script>
 
-    import {getAllMeetings, getSuggestion, addSugesstion} from '../api/Api'
+    import moment from 'moment';
+    import {getAllMeetings, getSuggestion, addSugesstion, getVotingForSuggestion} from '../api/Api'
 
     export default {
         name: 'Meeting',
@@ -82,6 +97,20 @@
                     "id": this.suggestionId,
                     "accepted": null
                 },
+                votings: [],
+                headers: [
+                    {
+                        text: 'Zastupitel',
+                        align: 'left',
+                        value: 'content'
+                    },
+                    {
+                        text: 'Hlasování',
+                        align: 'left',
+                        sortable: false,
+                        value: 'accepted'
+                    },
+                ],
             }
         },
         computed: {
@@ -89,16 +118,39 @@
                 let items = this.meetings;
                 return items;
             },
+            votingsList: function () {
+                return this.votings;
+            }
         },
         methods: {
             init: function () {
                 getAllMeetings().then(response => {
                     this.meetings = response.data;
+
+                    this.meetings.forEach(meeting => {
+                        meeting.formatedStart = this.formatDate(meeting.start);
+                    })
+
+                    if (!this.readOnly()) {
+
+                        let now = moment();
+
+                        this.meetings = this.meetings.filter(meeting => {
+                            let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                            return meetingStart.isSameOrAfter(now, 'day');
+                        })
+                    }
+
+
                 });
                 if (this.suggestion.id !== undefined) {
                     getSuggestion(this.suggestion.id).then(response => {
                         this.suggestion = response.data;
+                        this.suggestion.meeting.formatedStart = this.formatDate(this.suggestion.meeting.start);
                     });
+                    getVotingForSuggestion(this.suggestion.id).then(response => {
+                        this.votings = response.data;
+                    })
                 }
             },
             saveSuggestion() {
@@ -113,18 +165,23 @@
                 savedSuggestion.content = this.suggestion.content;
                 savedSuggestion.meetingId = this.suggestion.meeting.id;
 
-
-                console.log(savedSuggestion)
                 addSugesstion(savedSuggestion);
 
                 this.$router.push({name: 'Menu'});
+            },
+            readOnly: function () {
+                return this.votings.length !== 0;
+            },
+            formatDate: function (date) {
+                let momentDate = moment(date, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                return momentDate.format("D.M. YYYY H:mm");
+
             },
             backToMenu: function () {
                 this.$router.push({name: 'Menu'});
             },
             goToMeeting: function () {
                 if (this.suggestion.meeting !== undefined) {
-                    console.log(this.suggestion.meeting);
                     this.$router.push({
                         name: 'Meeting', params: {
                             meetingId: this.suggestion.meeting.id
@@ -132,8 +189,12 @@
                     });
                 }
             },
-            goToUserStatistic: function () {
-                this.$router.push({name: 'UserStatistic'});
+            goToUserStatistic: function (userId) {
+                this.$router.push({
+                    name: 'UserStatistic', params: {
+                        userId: userId
+                    }
+                });
             }
         },
 

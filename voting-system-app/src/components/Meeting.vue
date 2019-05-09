@@ -13,7 +13,7 @@
                                         v-model="selectedMeeting"
                                         :items="this.meetingsItems"
                                         label="Datum a čas"
-                                        item-text="start"
+                                        item-text="formatedStart"
                                         return-object
                                 ></v-select>
                             </v-flex>
@@ -38,8 +38,11 @@
 
                     <v-card-actions class="pa-3">
                         <v-layout justify-space-between>
-                            <v-btn @click="backToMenu()" color="primary">Zpět</v-btn>
-                            <v-btn @click="goToSuggestion()" color="primary">Bod programu</v-btn>
+                            <v-btn @click="backToMenu()" color="primary">Menu</v-btn>
+                            <v-btn v-if="this.selectedMeeting !== null" @click="endMeeting()" color="primary">
+                                Ukončit zastupitelstvo
+                            </v-btn>
+                            <v-btn @click="goToSuggestion()" color="primary">Nový návrh</v-btn>
                         </v-layout>
                     </v-card-actions>
                 </v-card>
@@ -50,7 +53,8 @@
 
 <script>
 
-    import {createNewMeeting, getAllMeetings} from '../api/Api'
+    import moment from 'moment';
+    import {getAllMeetings, getVotingForSuggestion, addSugesstion} from '../api/Api'
 
     export default {
         name: 'Meeting',
@@ -91,13 +95,69 @@
             init: function () {
                 getAllMeetings().then(response => {
                     this.meetings = response.data;
-//                    if (this.meetingId !== undefined) {
-                    let meetingId = this.meetingId;
-                    this.selectedMeeting = this.meetings.filter(function (meeting) {
-                        return (meeting.id === meetingId);
-                    })[0];
-//                    }
+
+                    this.meetings.forEach(meeting => {
+                        meeting.formatedStart = this.formatDate(meeting.start);
+                    });
+
+                    if (this.meetingId !== undefined) {
+                        let meetingId = this.meetingId;
+                        this.selectedMeeting = this.meetings.filter(function (meeting) {
+                            return (meeting.id === meetingId);
+                        })[0];
+                    } else {
+                        let now = moment();
+                        if (this.meetings.length !== 0) {
+                            let min = this.meetings[0];
+
+                            this.meetings.forEach(meeting => {
+                                let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                                if (meetingStart.isBetween(now, min) || meetingStart.isSame(now, 'day')) {
+                                    min = meeting;
+                                }
+                            })
+                            this.selectedMeeting = min;
+                        }
+
+
+                    }
                 });
+            },
+            endMeeting: function () {
+                let suggestions = this.suggestionsList;
+                let selectedMeeting = this.selectedMeeting;
+                suggestions.forEach(function (item) {
+
+                    let votings = [];
+
+                    getVotingForSuggestion(item.id).then(response => {
+                        votings = response.data;
+                        let ano = 0;
+                        let ne = 0;
+                        let zdrzel = 0;
+
+                        votings.forEach(voting => {
+                            if (voting.vote == "ANO") {
+                                ano++;
+                            }
+                            if (voting.vote == "NE") {
+                                ne++;
+                            }
+                            if (voting.vote == "ZDRZEL") {
+                                zdrzel++;
+                            }
+                        });
+
+                        item.accepted = (ano > ne + zdrzel);
+
+                        if (selectedMeeting !== null) {
+                            item.meetingId = selectedMeeting.id;
+                        }
+
+                        addSugesstion(item);
+
+                    })
+                })
             },
             getSuggestionResultText: function (suggestion) {
                 if (suggestion.accepted === null) {
@@ -108,6 +168,11 @@
                     return '<span class="primary--text">Přijato</span>'
                 }
                 return '<span class="error--text">Zamítnuto</span>'
+            },
+            formatDate: function (date) {
+                let momentDate = moment(date, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                return momentDate.format("D.M. YYYY H:mm");
+
             },
             backToMenu: function () {
                 this.$router.push({name: 'Menu'});
