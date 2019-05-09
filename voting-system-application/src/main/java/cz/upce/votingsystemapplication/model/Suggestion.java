@@ -6,26 +6,31 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 public class Suggestion {
 
+    public enum ACCEPTANCE {
+        PRIJATO,
+        NEPRIJATO,
+        NEROZHODNUTO
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String content;
     private Long meetingId;
-
-    //true = accepted, false = rejected, null = not decided yet
-    private Boolean accepted;
+    private ACCEPTANCE accepted;
 
     public Suggestion() {
+         accepted = ACCEPTANCE.NEROZHODNUTO;
     }
 
     public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId) {
         this.content = content;
         this.meetingId = meetingId;
-        this.accepted = null;
+        this.accepted = ACCEPTANCE.NEROZHODNUTO;
     }
 
-    public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId, Boolean accepted) {
+    public Suggestion(@NotEmpty String content, @NotEmpty Long meetingId, ACCEPTANCE accepted) {
         this.content = content;
         this.meetingId = meetingId;
         this.accepted = accepted;
@@ -55,11 +60,11 @@ public class Suggestion {
         this.meetingId = meetingId;
     }
 
-    public Boolean getAccepted() {
+    public ACCEPTANCE getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Boolean accepted) {
+    public void setAccepted(ACCEPTANCE accepted) {
         this.accepted = accepted;
     }
 }

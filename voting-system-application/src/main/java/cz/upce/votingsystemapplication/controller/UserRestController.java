@@ -21,8 +21,13 @@ public class UserRestController {
     private UserService userService;
 
     @PostMapping("add")
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
+    public String addUser(@RequestBody User user) {
+        try {
+            userService.addUser(user);
+        } catch (Exception e) {
+            return "Chyba";
+        }
+        return "OK, uživatel přidán";
     }
 
     @GetMapping("get/{id}")
@@ -36,10 +41,14 @@ public class UserRestController {
     }
 
     @DeleteMapping("delete/{id}")
-    public void deleteUser(@PathVariable("id") Long id) {
-        userService.deleteUser(id);
+    public String deleteUser(@PathVariable("id") Long id) {
+        try {
+            userService.deleteUser(id);
+        } catch (Exception e) {
+            return "Chyba";
+        }
+        return "OK, uživatel smazán";
     }
-
 
     @PostMapping("/login")
     public String login(@RequestBody UserLoginDto user) throws ServletException {

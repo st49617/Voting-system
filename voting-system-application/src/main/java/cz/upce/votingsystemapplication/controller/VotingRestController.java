@@ -16,8 +16,13 @@ public class VotingRestController {
     VotingService votingService;
 
     @PostMapping("add")
-    public void addVote(@RequestBody Voting voting) {
-        votingService.addVoting(voting);
+    public String addVote(@RequestBody Voting voting) {
+        try {
+            votingService.addVoting(voting);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return "OK";
     }
 
     @GetMapping("get/{id}")
