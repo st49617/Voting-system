@@ -4,7 +4,6 @@ const SERVER_URL = 'http://localhost:8080';
 
 const instance = axios.create({
     baseURL: SERVER_URL,
-    timeout: 1000,
     timeout: 30000,
     withCredentials: true,
     // headers: {
@@ -35,12 +34,40 @@ export const userLogin = function (credentials) {
 };
 
 
-export const createNew = function (meeting) {
+export const createNewMeeting = function (meeting) {
     let token = getToken();
     return instance.post('api/meeting/add', meeting, {headers: {'Authorization': "Bearer " + token}})
 };
 
-export const get = function () {
+
+export const getAllMeetings = function () {
     let token = getToken();
     return instance.get('api/meeting/get-all', {headers: {'Authorization': "Bearer " + token}})
+};
+
+export const getSuggestion = function (suggestionId) {
+    return instance.get('api/suggestion/get/' + suggestionId);
+};
+
+export const addSugesstion = function (suggestion) {
+    return instance.post('api/suggestion/add', suggestion);
+};
+
+export const addVoting = function (voting) {
+    let token = getToken();
+    return instance.post('api/voting/add', voting, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getVotingForSuggestion = function (suggestionId) {
+    let token = getToken();
+    return instance.get('api/voting/get-suggestion/' + suggestionId, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getVotingForUser = function (userId) {
+    let token = getToken();
+    return instance.get('api/voting/get-user/' + userId, {headers: {'Authorization': "Bearer " + token}});
+};
+
+export const getUser = function (userId) {
+    return instance.get('api/user/get/' + userId);
 };
