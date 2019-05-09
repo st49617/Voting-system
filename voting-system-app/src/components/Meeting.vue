@@ -148,7 +148,7 @@
                             }
                         });
 
-                        item.accepted = (ano > ne + zdrzel);
+                        item.accepted = (ano > ne + zdrzel)? "PRIJATO": "NEPRIJATO";
 
                         if (selectedMeeting !== null) {
                             item.meetingId = selectedMeeting.id;
@@ -160,11 +160,11 @@
                 })
             },
             getSuggestionResultText: function (suggestion) {
-                if (suggestion.accepted === null) {
+                if (suggestion.accepted === "NEROZHODNUTO") {
                     return '<span>Hlasování zatím neproběhlo</span>'
                 }
 
-                if (suggestion.accepted === true) {
+                if (suggestion.accepted === "PRIJATO") {
                     return '<span class="primary--text">Přijato</span>'
                 }
                 return '<span class="error--text">Zamítnuto</span>'

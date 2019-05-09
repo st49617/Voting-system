@@ -10,10 +10,10 @@
                                         v-if="this.suggestion.id !== undefined">#{{this.suggestion.id}}</span></h3>
                             </v-flex>
                             <v-flex class="text-xs-right">
-                                <v-chip color="primary" class="white--text" v-if="this.suggestion.accepted === true">
+                                <v-chip color="primary" class="white--text" v-if="this.suggestion.accepted === 'PRIJATO'">
                                     Přijato
                                 </v-chip>
-                                <v-chip color="error" class="white--text" v-if="this.suggestion.accepted === false">
+                                <v-chip color="error" class="white--text" v-if="this.suggestion.accepted === 'NEPRIJATO'">
                                     Zamítnuto
                                 </v-chip>
                             </v-flex>
@@ -95,7 +95,7 @@
                 meetings: [],
                 suggestion: {
                     "id": this.suggestionId,
-                    "accepted": null
+                    "accepted": 'NEROZHODNUTO'
                 },
                 votings: [],
                 headers: [
