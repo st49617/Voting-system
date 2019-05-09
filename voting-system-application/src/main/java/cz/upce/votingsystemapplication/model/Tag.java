@@ -19,7 +19,7 @@ public class Tag {
 
 
     @ManyToMany
-    @JoinColumn(name="suggestionId", nullable=false, updatable=false)
+    @JoinColumn(name="suggestionId", nullable=true, updatable=false)
     private List<Suggestion> suggestion;//body jednani
 
     public Tag() {
@@ -61,6 +61,14 @@ public class Tag {
 
     public void setSuggestion(List<Suggestion> suggestion) {
         this.suggestion = suggestion;
+    }
+
+    public void addSuggestion(Suggestion suggestion) {
+        this.suggestion.add(suggestion);
+    }
+
+    public void removeSuggestion(Suggestion suggestion) {
+        this.suggestion.removeIf(selectedSuggestion -> selectedSuggestion.getId() == suggestion.getId());
     }
 
 
