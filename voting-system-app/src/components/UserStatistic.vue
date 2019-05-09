@@ -33,7 +33,7 @@
                     <v-card-actions>
                         <v-layout justify-space-around>
                             <v-btn @click="backToMenu()" color="primary">Menu</v-btn>
-                            <v-btn @click="goToSuggestion()" color="primary">Bod Programu</v-btn>
+                            <v-btn @click="goToSuggestion()" color="primary">Nový návrh</v-btn>
                         </v-layout>
                     </v-card-actions>
                 </v-card>
@@ -107,17 +107,16 @@
                         this.user = response.data;
                     });
                     getVotingForUser(this.userId).then(response => {
-//                        console.log(response.data);
                         this.votings = response.data;
                     })
                 }
             },
             getSuggestionResultText: function (suggestion) {
-                if (suggestion.accepted === null) {
+                if (suggestion.accepted === 'NEROZHODNUTO') {
                     return '<span>Hlasování zatím neproběhlo</span>'
                 }
 
-                if (suggestion.accepted === true) {
+                if (suggestion.accepted === 'PRIJATO') {
                     return '<span class="primary--text">Přijato</span>'
                 }
                 return '<span class="error--text">Zamítnuto</span>'
