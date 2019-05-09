@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "voting-system-application", fallback = SuggestionClientFallback.class)
+@FeignClient(value = "suggestion-client", fallback = SuggestionClientFallback.class)
 public interface SuggestionClient {
 
     @RequestMapping(method = RequestMethod.GET, value = "api/suggestion/get/meeting/{id}")

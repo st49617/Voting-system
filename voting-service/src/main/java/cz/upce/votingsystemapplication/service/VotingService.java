@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.service;
 
+import cz.upce.votingsystemapplication.client.SuggestionClient;
 import cz.upce.votingsystemapplication.dao.VotingDao;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.dto.VotingDto;
@@ -16,7 +17,7 @@ public class VotingService {
     @Autowired
     private VotingDao votingDao;
     @Autowired
-    private SuggestionService suggestionService;
+    private SuggestionClient suggestionClient;
 
     public void addVoting(Long userId, Long suggestionId, Voting.VOTE vote) {
         Voting voting = new Voting(userId, suggestionId, vote);
@@ -48,7 +49,7 @@ public class VotingService {
     }
 
     private VotingDto mapVotingToDto(Voting voting) {
-        SuggestionDto suggestion = suggestionService.findById(voting.getSuggestionId());
+        SuggestionDto suggestion = suggestionClient.findById(voting.getSuggestionId());
         VotingDto votingDto = new VotingDto(voting.getVote(), suggestion);
         return votingDto;
     }

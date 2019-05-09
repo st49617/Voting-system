@@ -14,18 +14,26 @@ slozky:
     + TODO zmena na gateway;
   + user-service:
     + user mikroservisa - neprobihala zde zadna komunikace s okolim, je tedy jen ciste odriznuta;
-    + TODO vlastni DB
+    + TODO vlastni DB;
     + port: 8078;
     + jmeno instance: user-service;
   + meeting-service:
-    + meeting mikroservisa - zajistena komunikace se suggestion API ve voting-system-application
-    + TODO komunikace se suggestion microservice
-    + TODO vlastni DB
+    + meeting mikroservisa - zajistena komunikace se suggestion mikroservisou
+    + TODO vlastni DB;
     + port: 8079;
     + jmeno instance: meeting-service;
+  + voting-service:
+    + voting mikroservisa - zajistena komunikace se suggestion mikroservisou
+    + TODO vlastni DB;
+    + port: 8077
+    + jmeno instance: voting-service
+  + suggestion-service:
+    + suggestion resp. tag mikroservisa - zajistena komunikace s meeting mikroservisou
+    + TODO vlastni DB;
+    + port: 8076
+    + jmeno instance: suggestion-service
   + config-server:
     + konfiguracni server - obsahuje nastaveni pro jednotlive mikroservisy;
-    + TODO nastaveni pro mikroservisy, ktere zatim nejsou oddeleny;
     + port: 8888;
     + jmeno instance: config-server;
   + eureka-server;
@@ -35,24 +43,10 @@ slozky:
     + jmeno instance: eureka-server;
     
 TODO:
-  + voting microservice:
-    + oddeleni voting mikroservisy a zajisteni komunikace s okolim;
-    + bude obsahovat voting API a bude load balancovana;
-    + bude mit vlastni DB
-    + bude mit svuj zaznam v configu;
-    + ocekavany port/jmeno: 8077/voting-service;
-  + suggestion microservice:
-    + oddeleni suggestion mikroservisy a zajisteni komunikace s okolim;
-    + bude obsahovat suggestion API a tag API;
-    + bude mit vlastni DB
-    + bude mit svuj zaznam v configu;
-    + ocekavany port/jmeno: 8076/suggestion-service;
   + gateway:
     + implementace pristupoveho bodu, bude slouzit namisto nynejsi monoliticke aplikace;
     + ocekavany port/jmeno: 8080/gateway;
   + CORS:
     + vyreseni cross-origin, patrne filtrem na gateway;
-  + circuit-braker:
-    + je prubezne implementovan na urovni jednotlivych mikroservis;
   + komunikace s front-endy:
     + vubec nemam tuseni. :D Pomalu abychom se zacali modlit, vzyvat satana a tak.
