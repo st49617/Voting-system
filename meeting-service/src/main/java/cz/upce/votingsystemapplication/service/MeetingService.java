@@ -64,10 +64,8 @@ public class MeetingService {
     }
 
     private MeetingDto mapMeetingToDto(Meeting meeting) {
-        List<SuggestionForMeetingDto> suggestions;
-        suggestions = suggestionClient.getSuggestionsOnMeeting(meeting.getId());
-
-        return new MeetingDto(meeting.getId(), meeting.getStart(), suggestions);
+        List<SuggestionForMeetingDto> suggestions = suggestionClient.getSuggestionsOnMeeting(meeting.getId());
+        return new MeetingDto(meeting.getId(), meeting.getStart(), (suggestions == null ? new LinkedList<>() : suggestions));
     }
 
     private MeetingForSuggestionDto mapMeetingToDtoForSuggestion(Meeting meeting) {

@@ -1,11 +1,11 @@
 package cz.upce.votingsystemapplication.controller;
 
-import cz.upce.votingsystemapplication.client.SuggestionClient;
 import cz.upce.votingsystemapplication.dto.MeetingDto;
 import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController

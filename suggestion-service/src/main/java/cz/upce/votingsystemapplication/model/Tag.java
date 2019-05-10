@@ -2,6 +2,7 @@ package cz.upce.votingsystemapplication.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Tag {
@@ -17,15 +18,14 @@ public class Tag {
     private String color;
 
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name="suggestionId", nullable=false, updatable=false)
-    private Suggestion suggestion;//body jednani
+    @ManyToMany
+    @JoinColumn(name="suggestionId", nullable=true, updatable=false)
+    private List<Suggestion> suggestion;//body jednani
 
     public Tag() {
     }
 
-    public Tag(@NotNull String name, @NotNull String color, @NotNull Suggestion suggestion) {
+    public Tag(@NotNull String name, @NotNull String color, List<Suggestion> suggestion) {
         this.name = name;
         this.color = color;
         this.suggestion = suggestion;
@@ -55,12 +55,20 @@ public class Tag {
         this.color = color;
     }
 
-    public Suggestion getSuggestion() {
+    public List<Suggestion> getSuggestion() {
         return suggestion;
     }
 
-    public void setSuggestion(Suggestion suggestion) {
+    public void setSuggestion(List<Suggestion> suggestion) {
         this.suggestion = suggestion;
+    }
+
+    public void addSuggestion(Suggestion suggestion) {
+        this.suggestion.add(suggestion);
+    }
+
+    public void removeSuggestion(Suggestion suggestion) {
+        this.suggestion.removeIf(selectedSuggestion -> selectedSuggestion.getId() == suggestion.getId());
     }
 
 

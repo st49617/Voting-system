@@ -6,13 +6,7 @@ import cz.upce.votingsystemapplication.model.Suggestion;
 import cz.upce.votingsystemapplication.service.SuggestionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping
@@ -45,13 +39,14 @@ public class SuggestionRestController {
     Jako parametr se pošle JSON se stejnými atributy, jako má Suggestion. Spring MVC si to už přemapuje sám.
    */
   @PostMapping("add")
-  public String addSuggestion(@RequestBody Suggestion suggestion){
+  public Suggestion addSuggestion(@RequestBody Suggestion suggestion) {
+    Suggestion newSuggestion;
     try {
-      suggestionService.add(suggestion);
+      newSuggestion = suggestionService.add(suggestion);
     } catch (Exception e) {
-      return e.getMessage();
+      return null;
     }
-    return "OK";
+    return newSuggestion;
   }
 
   @PostMapping("markAsAccepted/{id}")
