@@ -1,15 +1,16 @@
 package cz.upce.votingsystemapplication.controller;
 
-import cz.upce.votingsystemapplication.client.SuggestionClient;
 import cz.upce.votingsystemapplication.dto.MeetingDto;
 import cz.upce.votingsystemapplication.model.Meeting;
 import cz.upce.votingsystemapplication.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping
+@CrossOrigin(value = "*", allowCredentials = "true")
 public class MeetingRestController {
 
     private final MeetingService meetingService;
@@ -20,6 +21,7 @@ public class MeetingRestController {
     }
 
     @GetMapping("get-all")
+    @CrossOrigin(value = "*", allowCredentials = "true")
     public List<MeetingDto> getAllMeetings() {
         return meetingService.findAll();
     }
