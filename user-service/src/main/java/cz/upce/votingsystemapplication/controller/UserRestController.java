@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping
+@CrossOrigin(value = "*", allowCredentials = "true")
 public class UserRestController {
 
     @Autowired
@@ -52,6 +53,7 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
+    @CrossOrigin(value = "*", allowCredentials = "true")
     public LoggedInUserDto login(@RequestBody UserLoginDto user) throws ServletException {
 
         String jwtToken = "";
