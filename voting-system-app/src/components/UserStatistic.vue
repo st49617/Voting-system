@@ -101,7 +101,6 @@
         },
         methods: {
             init: function () {
-                this.userId = 1;
                 if (this.userId !== undefined) {
                     getUser(this.userId).then(response => {
                         this.user = response.data;
@@ -109,6 +108,12 @@
                     getVotingForUser(this.userId).then(response => {
                         this.votings = response.data;
                     })
+                } else {
+                    if (this.$store.state.user !== undefined) {
+                        this.user = this.$store.state.user;
+                    } else {
+                        this.backToMenu();
+                    }
                 }
             },
             getSuggestionResultText: function (suggestion) {
