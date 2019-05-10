@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Application - Seznam uživatelů</title>
+</head>
+<body>
+
+<h2>Seznam uživatelů</h2>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Jméno</th>
+        <th>Příjmení</th>
+        <th>Email</th>
+        <th>Akce</th>
+    </tr>
+
+    <tr th:each="user: ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td><a href="#" th:href="@{/user/edit/{id}(id=${user.id})}">Upravit</a>&nbsp;|&nbsp;<a href="#"
+                                                                                               th:href="@{/user/delete/{id}(id=${user.id})}">Smazat</a>
+        </td>
+    </tr>
+</table>
+<a href="#" th:href="@{/user/add}">Přidat</a>
+
+
+</body>
+</html>

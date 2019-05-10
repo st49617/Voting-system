@@ -2,8 +2,10 @@ package cz.upce.votingsystemapplication.service;
 
 import cz.upce.votingsystemapplication.dao.UserDao;
 import cz.upce.votingsystemapplication.dto.UserDto;
+import cz.upce.votingsystemapplication.dto.UserRegistrationDto;
 import cz.upce.votingsystemapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,17 @@ public class UserService {
 
     public void addUser(User user) {
         userDao.save(user);
+    }
+
+    public void registerUser(UserRegistrationDto user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        User newUser = new User();
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPasswordHash(hashedPassword);
+        userDao.save(newUser);
     }
 
     public UserDto getUser(Long id) {
