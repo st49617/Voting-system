@@ -2,6 +2,7 @@ package cz.upce.votingsystemapplication.service;
 
 import cz.upce.votingsystemapplication.dao.UserDao;
 import cz.upce.votingsystemapplication.dto.UserDto;
+import cz.upce.votingsystemapplication.dto.UserLoginDto;
 import cz.upce.votingsystemapplication.dto.UserRegistrationDto;
 import cz.upce.votingsystemapplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,4 +63,19 @@ public class UserService {
 
     }
 
+    public UserDto loginUser(UserLoginDto user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Optional<User> foundUserOptional = userDao.findByEmail(user.getEmail());
+        if (foundUserOptional.isPresent()) {
+            User foundUser = foundUserOptional.get();
+            if (passwordEncoder.matches(user.getPassword(), foundUser.getPasswordHash())) {
+                UserDto foundUserDto = new UserDto(foundUser.getId(), foundUser.getFirstName(), foundUser.getLastName(), foundUser.getEmail());
+                return foundUserDto;
+            } else {
+                throw new RuntimeException("Špatné přihlašovací údaje.");
+            }
+        } else {
+            throw new RuntimeException("Uživatel nenalezen.");
+        }
+    }
 }
