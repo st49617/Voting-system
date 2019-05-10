@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "suggestion-client", fallback = SuggestionClientFallback.class)
+@FeignClient(value = "suggestion-service", fallback = SuggestionClientFallback.class)
 public interface SuggestionClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "api/suggestion/get/meeting/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "get/meeting/{id}")
     List<SuggestionForMeetingDto> getSuggestionsOnMeeting(@PathVariable("id") Long id);
 }

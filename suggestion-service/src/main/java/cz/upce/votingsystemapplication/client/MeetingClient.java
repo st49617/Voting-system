@@ -13,6 +13,6 @@ import java.util.List;
 @FeignClient(value = "meeting-service", fallback = MeetingClientFallback.class)
 public interface MeetingClient {
 
-    @RequestMapping(method = RequestMethod.GET, value = "api/meeting/get/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "get/{id}")
     MeetingDto get(@PathVariable("id") Long id);
 }

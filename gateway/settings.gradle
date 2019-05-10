@@ -3,4 +3,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'voting-system-application'
+rootProject.name = 'gateway'
