@@ -31,7 +31,6 @@ public class SuggestionRestController {
   }
 
   @GetMapping("get/meeting/{id}")
-  @CrossOrigin(value = "*", allowCredentials = "true")
   public List<SuggestionForMeetingDto> getSuggestionsOnMeeting(@PathVariable Long id){
     return suggestionService.findAllSuggestionsOnMeeting(id);
   }

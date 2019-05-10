@@ -53,7 +53,6 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin(value = "*", allowCredentials = "true")
     public LoggedInUserDto login(@RequestBody UserLoginDto user) throws ServletException {
 
         String jwtToken = "";
@@ -61,7 +60,7 @@ public class UserRestController {
         LoggedInUserDto loggedInUserDto = null;
         try {
             foundUserDto = userService.loginUser(user);
-            jwtToken = Jwts.builder().setSubject(foundUserDto.getEmail()).claim("roles", "user").setIssuedAt(new Date())
+            jwtToken = Jwts.builder().setSubject(foundUserDto.getEmail()).claim("roles", "templates").setIssuedAt(new Date())
                     .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
             loggedInUserDto = new LoggedInUserDto(foundUserDto, jwtToken);
         } catch (Exception e) {

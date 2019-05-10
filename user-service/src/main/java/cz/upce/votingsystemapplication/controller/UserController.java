@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/templates")
 public class UserController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class UserController {
 
     @GetMapping("")
     public ModelAndView index() {
-        ModelAndView modelView = new ModelAndView("/user/user-index.html", "", "");
+        ModelAndView modelView = new ModelAndView("/templates/templates-index.html", "", "");
         return modelView;
     }
 
@@ -29,14 +29,14 @@ public class UserController {
 
         Iterable<UserDto> users = userService.getAllUsers();
 
-        ModelAndView modelView = new ModelAndView("/user/user-list.html", "", "");
+        ModelAndView modelView = new ModelAndView("/templates/templates-list.html", "", "");
         modelView.addObject("users", users);
         return modelView;
     }
 
     @GetMapping("add")
     public ModelAndView addForm() {
-        ModelAndView modelView = new ModelAndView("/user/user-add.html", "userRegistrationDto", new UserRegistrationDto());
+        ModelAndView modelView = new ModelAndView("/templates/templates-add.html", "userRegistrationDto", new UserRegistrationDto());
         return modelView;
     }
 
@@ -44,10 +44,10 @@ public class UserController {
     public ModelAndView add(@ModelAttribute UserRegistrationDto user) {
         ModelAndView modelView = null;
         if (!user.getPassword().equals(user.getPasswordCheck())) {
-            modelView = new ModelAndView("/user/user-add.html", "userRegistrationDto", user);
+            modelView = new ModelAndView("/templates/templates-add.html", "userRegistrationDto", user);
             modelView.addObject("errorMessage", "CHYBA: Zadaná hesla se neshodují!");
         } else {
-            modelView = new ModelAndView("/user/user-index.html", "", "");
+            modelView = new ModelAndView("/templates/templates-index.html", "", "");
             try {
                 userService.registerUser(user);
                 modelView.addObject("actionResultMessage", "OK: Uživatel byl zaregistrován.");

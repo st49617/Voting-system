@@ -22,12 +22,12 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
-        <td><a href="#" th:href="@{/user/edit/{id}(id=${user.id})}">Upravit</a>&nbsp;|&nbsp;<a href="#"
-                                                                                               th:href="@{/user/delete/{id}(id=${user.id})}">Smazat</a>
+        <td><a href="#" th:href="@{/templates/edit/{id}(id=${user.id})}">Upravit</a>&nbsp;|&nbsp;<a href="#"
+                                                                                                    th:href="@{/templates/delete/{id}(id=${user.id})}">Smazat</a>
         </td>
     </tr>
 </table>
-<a href="#" th:href="@{/user/add}">Přidat</a>
+<a href="#" th:href="@{/templates/add}">Přidat</a>
 
 
 </body>

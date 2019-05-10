@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping
-@CrossOrigin(value = "*", allowCredentials = "true")
 public class MeetingRestController {
 
     private final MeetingService meetingService;
@@ -21,7 +20,6 @@ public class MeetingRestController {
     }
 
     @GetMapping("get-all")
-    @CrossOrigin(value = "*", allowCredentials = "true")
     public List<MeetingDto> getAllMeetings() {
         return meetingService.findAll();
     }
