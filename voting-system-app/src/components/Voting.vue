@@ -83,14 +83,11 @@
 
 
                 this.meeting.suggestions = notVotingSuggestion;
-
-//                getVotingForSuggestion().then(response => {
-//                    let votingOnSuggestion = response.data;
-//
-//                    let notVotingSuggestion
-
                 return this.meeting.suggestions[0];
-//                });
+            },
+            loadedUser() {
+                let user = this.$store.state.user;
+                return user;
             }
         },
         methods: {
@@ -106,15 +103,14 @@
                         this.meeting = meetingsForThisDay[0];
                     }
                 });
-
-                getVotingForUser(1).then(response => {
+                getVotingForUser(this.loadedUser.id).then(response => {
                     this.userVotings = response.data;
                 })
 
             },
             addVote: function (vote) {
                 let voting = {
-                    userId: 1,
+                    userId: this.loadedUser.id,
                     suggestionId: this.nextSuggestion.id,
                     vote: vote
                 }
