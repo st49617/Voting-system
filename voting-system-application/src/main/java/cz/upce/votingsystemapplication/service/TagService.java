@@ -1,7 +1,9 @@
 package cz.upce.votingsystemapplication.service;
 
+import cz.upce.votingsystemapplication.dao.SuggestionDao;
 import cz.upce.votingsystemapplication.dao.TagDAO;
 import cz.upce.votingsystemapplication.dto.TagDto;
+import cz.upce.votingsystemapplication.model.Suggestion;
 import cz.upce.votingsystemapplication.model.Tag;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -15,11 +17,13 @@ public class TagService {
 
     @Autowired
     private TagDAO tagDAO;
+    @Autowired
+    private SuggestionDao suggestionDao;
 
-    ModelMapper modelMapper=new ModelMapper();
+    ModelMapper modelMapper = new ModelMapper();
 
-    public void addTag(Tag tag) {
-        tagDAO.save(tag);
+    public Tag addTag(Tag tag) {
+        return tagDAO.save(tag);
     }
 
     public TagDto getTag(Long id) {
@@ -29,14 +33,31 @@ public class TagService {
 
     public List<TagDto> getAllTag() {
         List<Tag> all = tagDAO.findAll();
-        return modelMapper.map(all,new TypeToken<List<TagDto>>() {}.getType());
+        return modelMapper.map(all, new TypeToken<List<TagDto>>() {
+        }.getType());
     }
 
     public void deleteTag(Long id) {
         tagDAO.deleteById(id);
     }
 
-    public TagDto findBySuggestion_Id(Long id) {
-       Tag tagOnSuggestion = tagDAO.findOneBySuggestion_Id(id);
-      return tagOnSuggestion==null?null: modelMapper.map(tagOnSuggestion, TagDto.class);}
+    public List<TagDto> findBySuggestion_Id(Long id) {
+        List<Tag> tagOnSuggestion = tagDAO.findBySuggestion_Id(id);
+        return tagOnSuggestion == null ? null : modelMapper.map(tagOnSuggestion, new TypeToken<List<TagDto>>() {
+        }.getType());
+    }
+
+    public void addTagToSugestion(Long tagId, Long suggestionId) {
+        Suggestion suggestion = suggestionDao.getOne(suggestionId);
+        Tag tag = tagDAO.getOne(tagId);
+        tag.addSuggestion(suggestion);
+        tagDAO.save(tag);
+    }
+
+    public void removeTagToSugestion(Long tagId, Long suggestionId) {
+        Suggestion suggestion = suggestionDao.getOne(suggestionId);
+        Tag tag = tagDAO.getOne(tagId);
+        tag.removeSuggestion(suggestion);
+        tagDAO.save(tag);
+    }
 }

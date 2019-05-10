@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
 public class VotingSystemApplication {
 
     
@@ -14,7 +14,7 @@ public class VotingSystemApplication {
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
-        registrationBean.addUrlPatterns("/api/voting/*");
+        registrationBean.addUrlPatterns("/api/voting/add");
 
         return registrationBean;
     }
