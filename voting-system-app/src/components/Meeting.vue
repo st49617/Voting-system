@@ -108,7 +108,13 @@
                     } else {
                         let now = moment();
                         if (this.meetings.length !== 0) {
-                            let min = this.meetings[0];
+
+                            let availableMeetings = this.meetings.filter(meeting => {
+                                let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                                return (meetingStart.isAfter(now) || meetingStart.isSame(now, 'day'));
+                            });
+
+                            let min = (availableMeetings.length !== 0) ? availableMeetings[0] : this.meetings[0];
 
                             this.meetings.forEach(meeting => {
                                 let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
@@ -148,7 +154,7 @@
                             }
                         });
 
-                        item.accepted = (ano > ne + zdrzel)? "PRIJATO": "NEPRIJATO";
+                        item.accepted = (ano > ne + zdrzel) ? "PRIJATO" : "NEPRIJATO";
 
                         if (selectedMeeting !== null) {
                             item.meetingId = selectedMeeting.id;

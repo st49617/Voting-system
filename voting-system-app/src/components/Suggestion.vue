@@ -210,16 +210,15 @@
                     this.meetings.forEach(meeting => {
                         meeting.formatedStart = this.formatDate(meeting.start);
                     })
-
-                    if (!this.readOnly()) {
+                    if (this.suggestionId === undefined) {
 
                         let now = moment();
-
                         this.meetings = this.meetings.filter(meeting => {
                             let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
                             return meetingStart.isSameOrAfter(now, 'day');
                         })
                     }
+
                 });
                 if (this.suggestion.id !== undefined) {
                     getSuggestion(this.suggestion.id).then(response => {
@@ -228,6 +227,16 @@
                     });
                     getVotingForSuggestion(this.suggestion.id).then(response => {
                         this.votings = response.data;
+
+                        if (!this.readOnly()) {
+
+                            let now = moment();
+
+                            this.meetings = this.meetings.filter(meeting => {
+                                let meetingStart = moment(meeting.start, moment.HTML5_FMT.DATETIME_LOCAL_MS);
+                                return meetingStart.isSameOrAfter(now, 'day');
+                            })
+                        }
                     })
                     getAllTagsForSuggestion(this.suggestion.id).then(response => {
                         this.tags = response.data;
