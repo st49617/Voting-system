@@ -9,8 +9,8 @@ slozky:
     + zuul gateway backendu;
     + obsahuje presmerovani na ostatni servisy;
     + port: 8080;
-    + jmeno instance: gateway
-    + TODO CORS
+    + jmeno instance: gateway;
+    + TODO CORS;
   + user-service:
     + user mikroservisa - neprobihala zde zadna komunikace s okolim, je tedy jen ciste odriznuta;
     + TODO vlastni DB;
