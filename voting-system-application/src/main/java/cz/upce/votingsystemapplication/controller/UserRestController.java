@@ -1,5 +1,6 @@
 package cz.upce.votingsystemapplication.controller;
 
+import cz.upce.votingsystemapplication.dto.LoggedInUserDto;
 import cz.upce.votingsystemapplication.dto.UserDto;
 import cz.upce.votingsystemapplication.dto.UserLoginDto;
 import cz.upce.votingsystemapplication.model.User;
@@ -51,34 +52,21 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody UserLoginDto user) throws ServletException {
+    public LoggedInUserDto login(@RequestBody UserLoginDto user) throws ServletException {
 
         String jwtToken = "";
-
-//        if (login.getEmail() == null || login.getPasswordHash() == null) {
-//            throw new ServletException("Please fill in username and password");
-//        }
-
-        String email = user.getEmail();
-        String password = user.getPassword();
-
-//
-//        User user = userService.(email);
-//
-//        if (user == null) {
-//            throw new ServletException("User email not found.");
-//        }
-//
-//        String pwd = user.getPassword();
-//
-//        if (!password.equals(pwd)) {
-//            throw new ServletException("Invalid login. Please check your name and password.");
-//        }
-
-        jwtToken = Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
-
-        return jwtToken;
+        UserDto foundUserDto = null;
+        LoggedInUserDto loggedInUserDto = null;
+        try {
+            foundUserDto = userService.loginUser(user);
+            jwtToken = Jwts.builder().setSubject(foundUserDto.getEmail()).claim("roles", "user").setIssuedAt(new Date())
+                    .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+            loggedInUserDto = new LoggedInUserDto(foundUserDto, jwtToken);
+        } catch (Exception e) {
+            System.out.println("CHYBA:" + e.getMessage());
+            return new LoggedInUserDto(null, null);
+        }
+        return loggedInUserDto;
     }
 
 
