@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagDAO  extends JpaRepository<Tag, Long> {
 //     Tag getTagOnSuggestion(Suggestion suggestionId);
-     Tag findOneBySuggestion_Id(Long suggestionId);
+     List<Tag> findBySuggestion_Id(Long suggestionId);
     }
 

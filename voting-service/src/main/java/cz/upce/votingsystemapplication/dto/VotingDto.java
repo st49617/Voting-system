@@ -6,13 +6,13 @@ public class VotingDto {
 
     private Voting.VOTE vote;
     private SuggestionDto suggestion;
-//    TODO: Dodělat až bude
-//    private UserDto user;
+    private UserDto user;
 
 
-    public VotingDto(Voting.VOTE vote, SuggestionDto suggestion) {
+    public VotingDto(Voting.VOTE vote, SuggestionDto suggestion, UserDto user) {
         this.vote = vote;
         this.suggestion = suggestion;
+        this.user = user;
     }
 
     public Voting.VOTE getVote() {
@@ -23,11 +23,19 @@ public class VotingDto {
         return suggestion;
     }
 
+    public UserDto getUser() {
+        return user;
+    }
+
     public void setVote(Voting.VOTE vote) {
         this.vote = vote;
     }
 
     public void setSuggestion(SuggestionDto suggestion) {
         this.suggestion = suggestion;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
     }
 }

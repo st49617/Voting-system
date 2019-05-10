@@ -10,15 +10,14 @@ import org.springframework.context.annotation.Bean;
 
 @EnableZuulProxy
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
 public class VotingSystemApplicationGateway {
-
     
     @Bean
     public FilterRegistrationBean jwtFilter() {
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new JwtFilter());
-        registrationBean.addUrlPatterns("/api/voting/*");
+        registrationBean.addUrlPatterns("/api/voting/add");
 
         return registrationBean;
     }

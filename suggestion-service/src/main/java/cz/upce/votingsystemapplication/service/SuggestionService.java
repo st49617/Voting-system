@@ -65,8 +65,8 @@ public class SuggestionService {
     return dtoOutList;
   }
 
-  public void add(Suggestion suggestion) {
-    suggestionDao.save(suggestion);
+  public Suggestion add(Suggestion suggestion) {
+    return suggestionDao.save(suggestion);
   }
 
   public void deleteById(Long id) {
