@@ -14,14 +14,14 @@ import org.springframework.context.annotation.Bean;
 public class VotingSystemApplicationGateway {
 
     
-//    @Bean
-//    public FilterRegistrationBean jwtFilter() {
-//        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-//        registrationBean.setFilter(new JwtFilter());
-//        registrationBean.addUrlPatterns("/api/voting/*");
-//
-//        return registrationBean;
-//    }
+    @Bean
+    public FilterRegistrationBean jwtFilter() {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new JwtFilter());
+        registrationBean.addUrlPatterns("/api/voting/*");
+
+        return registrationBean;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(VotingSystemApplicationGateway.class, args);
