@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @EnableEurekaClient
 @EnableZuulProxy
 @SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
-public class VotingSystemApplicationGateway {
+public class Gateway {
 
     @Bean
     public FilterRegistrationBean jwtFilter() {
@@ -70,7 +70,7 @@ public class VotingSystemApplicationGateway {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(VotingSystemApplicationGateway.class, args);
+        SpringApplication.run(Gateway.class, args);
     }
 
 }
