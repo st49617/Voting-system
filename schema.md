@@ -12,22 +12,22 @@ slozky:
     + jmeno instance: gateway;
   + user-service:
     + user mikroservisa - neprobihala zde zadna komunikace s okolim, je tedy jen ciste odriznuta;
-    + TODO vlastni DB;
+    + db: voting_system_user_service
     + port: 8078;
     + jmeno instance: user-service;
   + meeting-service:
     + meeting mikroservisa - zajistena komunikace se suggestion mikroservisou
-    + TODO vlastni DB;
+    + db: voting_system_meeting_service
     + port: 8079;
     + jmeno instance: meeting-service;
   + voting-service:
     + voting mikroservisa - zajistena komunikace se suggestion mikroservisou
-    + TODO vlastni DB;
+    + db: voting_system_voting_service
     + port: 8081 - 8090;
     + jmeno instance: voting-service
   + suggestion-service:
     + suggestion resp. tag mikroservisa - zajistena komunikace s meeting mikroservisou
-    + TODO vlastni DB;
+    + db: voting_system_suggestion_service
     + port: 8076
     + jmeno instance: suggestion-service
   + config-server:
