@@ -10,10 +10,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableCircuitBreaker
 @SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
-public class VotingSystemApplicationMeetingService {
+public class VotingServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(VotingSystemApplicationMeetingService.class, args);
+        SpringApplication.run(VotingServiceApplication.class, args);
     }
 
 }
