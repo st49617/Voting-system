@@ -66,6 +66,7 @@ public class Gateway {
         protected void configure(HttpSecurity http) throws Exception {
             // ...
             http.cors();
+            http.csrf().disable();
         }
     }
 

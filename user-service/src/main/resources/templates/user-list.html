@@ -14,7 +14,7 @@
         <th>Jméno</th>
         <th>Příjmení</th>
         <th>Email</th>
-        <th>Akce</th>
+      <!--  <th>Akce</th> -->
     </tr>
 
     <tr th:each="user: ${users}">
@@ -22,12 +22,13 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
+        <!--
         <td><a href="#" th:href="@{/templates/edit/{id}(id=${user.id})}">Upravit</a>&nbsp;|&nbsp;<a href="#"
                                                                                                     th:href="@{/templates/delete/{id}(id=${user.id})}">Smazat</a>
-        </td>
+        </td> -->
     </tr>
 </table>
-<a href="#" th:href="@{/templates/add}">Přidat</a>
+<a href="#" th:href="@{/user/add}">Přidat uživatele</a>
 
 
 </body>
