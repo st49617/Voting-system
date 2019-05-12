@@ -87,6 +87,16 @@ public class SuggestionService {
     }
   }
 
+  //testing purposes only, very hardcore
+  public void deleteAll(){
+    try{
+      suggestionDao.deleteAll();
+    } catch (Exception e) {
+      LOGGER.log(Level.SEVERE,"All suggestions could not be deleted.");
+      throw e;
+    }
+  }
+
   public void markAsAccepted(Long suggestionId) {
     markAcceptance(suggestionId, ACCEPTANCE.PRIJATO);
   }
@@ -96,9 +106,14 @@ public class SuggestionService {
   }
 
   private void markAcceptance(Long suggestionId, ACCEPTANCE acceptance) {
-    Suggestion suggestion = suggestionDao.getOne(suggestionId);
-    suggestion.setAccepted(acceptance);
-    suggestionDao.save(suggestion);
+    try {
+      Suggestion suggestion = suggestionDao.findById(suggestionId).get();
+      suggestion.setAccepted(acceptance);
+      suggestionDao.save(suggestion);
+    }catch (Exception e) {
+      LOGGER.log(Level.SEVERE,"Suggestion could not be saved. Marking acceptance has failed.");
+      throw e;
+    }
   }
 
   private SuggestionDto mapSuggestionToDto(Suggestion suggestion) {
