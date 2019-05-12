@@ -7,7 +7,8 @@
                     <v-btn v-if="userIsLogged()" @click="goToVoting()" large color="primary">Hlasování</v-btn>
                     <v-btn v-if="userIsLogged()" @click="goToUserStatistic()" large color="primary">Statistiky</v-btn>
                     <v-btn @click="goToMeeting()" large color="primary">Předchozí zastupitelstva</v-btn>
-                    <v-btn @click="goToSuggestion()" large color="primary">Správa návrhů</v-btn>
+                    <v-btn @click="goToSuggestion()" large color="primary">Nový návrh</v-btn>
+                    <!--<v-btn @click="pepa()" large color="primary">Správa návrhů</v-btn>-->
                 </v-layout>
             </v-flex>
         </v-layout>
@@ -16,7 +17,7 @@
 
 <script>
 
-    import {createNew, get, userIsLogged} from '../api/Api'
+    import {createNewMeeting, getAllMeetings, userIsLogged} from '../api/Api'
 
     export default {
         name: 'Menu',
@@ -27,9 +28,9 @@
             pepa: function () {
 //                let token = this.$store.state.token;
                 let meeting = {start: "2019-10-10T14:08:56.235-0700"}
-                createNew(meeting);
+                createNewMeeting(meeting);
 
-                get().then(response => {
+                getAllMeetings().then(response => {
                     console.log(response.data);
                 });
             },
