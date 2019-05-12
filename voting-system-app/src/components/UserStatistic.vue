@@ -111,6 +111,9 @@
                 } else {
                     if (this.$store.state.user !== undefined) {
                         this.user = this.$store.state.user;
+                        getVotingForUser(this.user.id).then(response => {
+                            this.votings = response.data;
+                        })
                     } else {
                         this.backToMenu();
                     }

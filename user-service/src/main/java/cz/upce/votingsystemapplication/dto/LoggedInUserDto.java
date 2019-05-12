@@ -6,6 +6,9 @@ public class LoggedInUserDto {
     private UserDto user;
     private String jwtToken;
 
+    public LoggedInUserDto() {
+    }
+
     public LoggedInUserDto(UserDto user, String jwtToken) {
         this.user = user;
         this.jwtToken = jwtToken;
