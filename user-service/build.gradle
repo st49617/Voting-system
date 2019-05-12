@@ -34,5 +34,5 @@ dependencies {
     compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
-    compile 'org.flywaydb:flyway-core'
+    //compile 'org.flywaydb:flyway-core'
 }

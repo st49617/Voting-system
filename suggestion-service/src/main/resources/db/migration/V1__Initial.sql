@@ -1,12 +1,6 @@
-create table hibernate_sequence
-(
-  next_val bigint null
-)
-  engine = MyISAM;
-
 create table suggestion
 (
-  id         bigint       not null
+  id         bigint auto_increment
     primary key,
   accepted   int          null,
   content    varchar(255) null,
@@ -16,7 +10,7 @@ create table suggestion
 
 create table tag
 (
-  id    bigint       not null
+  id    bigint auto_increment
     primary key,
   color varchar(255) not null,
   name  varchar(255) not null
@@ -36,19 +30,19 @@ create index FKrhehk68rqow3qfb763qoosusf
 create index FKsf41us9sw9yqobas9wyp2ph6y
   on tag_suggestion (tag_id);
 
-INSERT INTO voting_system_suggestion_service.tag VALUES (1, 'green', 'zeleny');
-INSERT INTO voting_system_suggestion_service.tag VALUES (2, 'red', 'cerveny');
+INSERT INTO voting_system_suggestion_service.tag VALUES (null, 'green', 'zeleny');
+INSERT INTO voting_system_suggestion_service.tag VALUES (null, 'red', 'cerveny');
 
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (1, 0, 'suggestion 1', 1);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (2, 0, 'suggestion 2', 2);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (3, 0, 'suggestion 3', 3);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (4, 0, 'suggestion 4', 4);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (5, 0, 'suggestion 5', 5);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (6, 0, 'suggestion 6', 1);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (7, 0, 'suggestion 7', 2);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (8, 0, 'suggestion 8', 3);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (9, 0, 'suggestion 9', 4);
-INSERT INTO voting_system_suggestion_service.suggestion VALUES (10, 0, 'suggestion 10', 5);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 1', 1);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 2', 2);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 3', 3);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 4', 4);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 5', 5);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 6', 1);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 7', 2);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 8', 3);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 9', 4);
+INSERT INTO voting_system_suggestion_service.suggestion VALUES (null, 0, 'suggestion 10', 5);
 
 INSERT INTO voting_system_suggestion_service.tag_suggestion VALUES (1, 1);
 INSERT INTO voting_system_suggestion_service.tag_suggestion VALUES (1, 2);

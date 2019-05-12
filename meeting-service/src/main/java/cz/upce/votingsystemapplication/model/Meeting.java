@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class Meeting {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
