@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping
-@CrossOrigin(value = "*", allowCredentials = "true")
+//@CrossOrigin(value = "*", allowCredentials = "true")
 public class UserRestController {
 
     @Autowired
