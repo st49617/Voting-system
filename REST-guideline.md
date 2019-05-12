@@ -70,3 +70,12 @@ Je reprezentovan svym DTO (::MeetingDto), jehoz soucasti je seznam bodu jednani 
 - `/get/{id}`		- vraci zasedani podle zadaneho id
 - `/get-all`		- vraci seznam vsech zasedani
 - `/delete/{id}`	- maze zasedani podle zadaneho id
+
+### Tag entita
+Tag (štítek) predstavuje co se budu se hlasovat.
+Je reprezentovan svym DTO (::TagDto), jehoz soucasti je seznam bodu jednani (::List<SuggestionForTagDto>).
+	
+##### GET
+- `/get/{id}`		- vraci tag (štítek) podle zadaneho id
+- `/get-all`		- vraci seznam vsech tagů (štítků)
+- `/delete/{id}`	- maze tag (štítek) podle zadaneho id
