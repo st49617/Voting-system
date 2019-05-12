@@ -64,8 +64,17 @@
 
             login: function () {
                 userLogin(this.credentials).then(response => {
-//                    this.$store.commit('LOGIN_SUCCESS', response.data)
-                    $cookies.set('AUTH_TOKEN', response.data);
+
+                    if (response.data.user === null || response.data.token === null) {
+                        return;
+                    }
+
+                    let user = response.data.user;
+                    let token = response.data.jwtToken;
+                    this.$store.state.user = user;
+//                    this.$store.commit('LOGIN_SUCCESS', user.email)
+
+                    $cookies.set('AUTH_TOKEN', token);
                     this.$router.push({name: 'Menu'});
                 }).catch(error => {
                     console.log("Error login")
