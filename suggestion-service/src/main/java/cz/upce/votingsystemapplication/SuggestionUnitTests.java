@@ -79,7 +79,7 @@ public class SuggestionTests {
 
     List<SuggestionDto> found = suggestionService.findAll();
     suggestionService.markAsRejected(found.get(2).getId());
-    Assert.assertEquals(ACCEPTANCE.REJECTED, suggestionService.findById(found.get(2).getId()).getAccepted());
+    Assert.assertEquals(ACCEPTANCE.NEPRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
 
     suggestionService.markAsAccepted(found.get(2).getId());
     Assert.assertEquals(ACCEPTANCE.PRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
