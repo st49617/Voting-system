@@ -15,4 +15,9 @@ public class MeetingClientFallback implements MeetingClient {
     public MeetingDto get(Long id) {
         return null;
     }
+
+    @Override
+    public String add(MeetingDto meetingDto){
+        return null;
+    }
 }
