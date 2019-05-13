@@ -4,6 +4,7 @@ plugins {
 }
 
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java'
 
 group = 'cz.upce.voting-system'
 version = '0.0.1-SNAPSHOT'
@@ -11,6 +12,7 @@ sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencyManagement {
@@ -35,4 +37,6 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     compile 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
     compile 'org.flywaydb:flyway-core'
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.+"
 }

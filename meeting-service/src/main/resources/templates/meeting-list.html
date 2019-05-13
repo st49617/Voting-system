@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Application - Seznam setkání</title>
+</head>
+<body>
+
+<h2>Seznam setkání</h2>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Začátek</th>
+        <!--  <th>Akce</th> -->
+    </tr>
+
+    <tr th:each="meeting: ${meetings}">
+        <td th:text="${meeting.id}"></td>
+        <td th:text="${#dates.format(meeting.start,'dd.MM.YYYY HH:mm')}"></td>
+        <!--
+        <td><a href="#" th:href="@{/templates/edit/{id}(id=${user.id})}">Upravit</a>&nbsp;|&nbsp;<a href="#"
+                                                                                                    th:href="@{/templates/delete/{id}(id=${user.id})}">Smazat</a>
+        </td> -->
+    </tr>
+</table>
+<a href="#" th:href="@{/meeting/add}">Přidat setkání</a>
+
+
+</body>
+</html>

@@ -7,6 +7,9 @@ public class UserDto {
     private String lastName;
     private String email;
 
+    public UserDto() {
+    }
+
     public UserDto(long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
