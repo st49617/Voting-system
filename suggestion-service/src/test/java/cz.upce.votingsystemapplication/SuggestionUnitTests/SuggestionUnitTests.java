@@ -1,14 +1,16 @@
-package cz.upce.votingsystemapplication;
+package cz.upce.votingsystemapplication.SuggestionUnitTests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 
 import cz.upce.votingsystemapplication.client.MeetingClient;
 import cz.upce.votingsystemapplication.dto.SuggestionDto;
 import cz.upce.votingsystemapplication.dto.SuggestionForMeetingDto;
 import cz.upce.votingsystemapplication.model.Suggestion;
+import cz.upce.votingsystemapplication.model.Suggestion.ACCEPTANCE;
 import cz.upce.votingsystemapplication.service.SuggestionService;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class SuggestionTests {
+public class SuggestionUnitTests {
 
   @MockBean
   private MeetingClient meetingClient;
@@ -46,9 +48,9 @@ public class SuggestionTests {
     int count = 1;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
+    List<Suggestion> found = suggestionService.findAll();
 
-    Assert.assertEquals(found.size(), count);
+    assertEquals(found.size(), count);
   }
 
   @Test
@@ -56,8 +58,8 @@ public class SuggestionTests {
     int count = 5;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
-    Assert.assertEquals(found.size(), count);
+    List<Suggestion> found = suggestionService.findAll();
+    assertEquals(found.size(), count);
   }
 
   @Test
@@ -65,10 +67,10 @@ public class SuggestionTests {
     int count = 5;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
+    List<Suggestion> found = suggestionService.findAll();
 
     SuggestionDto suggestion2 = suggestionService.findById(found.get(2).getId());
-    Assert.assertEquals(testSuggestionContent + 2, suggestion2.getContent());
+    assertEquals(testSuggestionContent + 2, suggestion2.getContent());
   }
 
 
@@ -77,12 +79,12 @@ public class SuggestionTests {
     int count = 5;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
+    List<Suggestion> found = suggestionService.findAll();
     suggestionService.markAsRejected(found.get(2).getId());
-    Assert.assertEquals(ACCEPTANCE.NEPRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
+    assertEquals(ACCEPTANCE.NEPRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
 
     suggestionService.markAsAccepted(found.get(2).getId());
-    Assert.assertEquals(ACCEPTANCE.PRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
+    assertEquals(ACCEPTANCE.PRIJATO, suggestionService.findById(found.get(2).getId()).getAccepted());
   }
 
   @Test
@@ -90,11 +92,10 @@ public class SuggestionTests {
     int count = 5;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
-    suggestionService.delete(mapDtoToSuggestion(found.get(3), 4L));
-    List<SuggestionDto> foundAfterDelete = suggestionService.findAll();
-    Assert.assertEquals(foundAfterDelete.size(), count-1);
-
+    List<Suggestion> found = suggestionService.findAll();
+    suggestionService.delete(found.get(3));
+    List<Suggestion> foundAfterDelete = suggestionService.findAll();
+    assertEquals(foundAfterDelete.size(), count-1);
   }
 
   @Test
@@ -102,10 +103,10 @@ public class SuggestionTests {
     int count = 5;
     createTestSuggestions(count);
 
-    List<SuggestionDto> found = suggestionService.findAll();
+    List<Suggestion> found = suggestionService.findAll();
     suggestionService.deleteById(found.get(2).getId());
-    List<SuggestionDto> foundAfterDelete = suggestionService.findAll();
-    Assert.assertEquals(foundAfterDelete.size(), count-1);
+    List<Suggestion> foundAfterDelete = suggestionService.findAll();
+    assertEquals(foundAfterDelete.size(), count-1);
   }
 
   @Test
@@ -115,9 +116,9 @@ public class SuggestionTests {
     try {
       suggestionService.delete(mapDtoToSuggestion(new SuggestionDto(-20L, "yolo", null, ACCEPTANCE.PRIJATO), 23L));
     } catch (Exception e) {
-      List<SuggestionDto> foundAfterDelete = suggestionService.findAll();
-      Assert.assertEquals(foundAfterDelete.size(), count);
-      Assert.assertEquals(EmptyResultDataAccessException.class, e.getClass());
+      List<Suggestion> foundAfterDelete = suggestionService.findAll();
+      assertEquals(foundAfterDelete.size(), count);
+      assertEquals(EmptyResultDataAccessException.class, e.getClass());
     }
   }
 
@@ -128,7 +129,7 @@ public class SuggestionTests {
     try {
       suggestionService.deleteById(-20L);
     } catch (Exception e){
-      Assert.assertEquals(EmptyResultDataAccessException.class, e.getClass());
+      assertEquals(EmptyResultDataAccessException.class, e.getClass());
     }
   }
 
@@ -139,7 +140,7 @@ public class SuggestionTests {
     createTestSuggestions(count);
 
     List<SuggestionForMeetingDto> found = suggestionService.findAllSuggestionsOnMeeting(2L);
-    Assert.assertEquals(2, found.size());
+    assertEquals(2, found.size());
   }
 
   @Test
@@ -149,7 +150,7 @@ public class SuggestionTests {
     createTestSuggestions(count);
 
     List<SuggestionForMeetingDto> found = suggestionService.findAllSuggestionsOnMeeting(50L);
-    Assert.assertNull(found);
+    assertNull(found);
   }
 
   private void createTestSuggestions(int count) {
@@ -158,13 +159,13 @@ public class SuggestionTests {
     }
   }
 
-  private Suggestion mapDtoToSuggestion(SuggestionDto dtoIn, Long meetingId){
+  private Suggestion mapDtoToSuggestion(SuggestionDto dtoIn, Long meetingId) {
     Suggestion suggestion = new Suggestion();
     suggestion.setAccepted(dtoIn.getAccepted());
     suggestion.setContent(dtoIn.getContent());
     suggestion.setId(dtoIn.getId());
     suggestion.setMeetingId(meetingId);
     return suggestion;
-
   }
+
 }
