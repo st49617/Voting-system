@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Application - Správa setkání</title>
+</head>
+<body>
+
+<h2>Správa setkání</h2>
+
+<div th:if="${actionResultMessage}">
+    <p th:text="${actionResultMessage}"></p>
+</div>
+
+<ul>
+    <li><a href="#" th:href="@{/meeting/list}">Seznam</a></li>
+    <li><a href="#" th:href="@{/meeting/add}">Přidat</a></li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Application - Přidání uživatele</title>
+</head>
+<body>
+
+<div th:if="${errorMessage}">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<h2>Přidání uživatele</h2>
+<form action="#" th:action="@{/user/add}" th:object="${userRegistrationDto}" method="post">
+    <table>
+        <tr>
+            <th colspan="2">Nový uživatel</th>
+        </tr>
+
+        <tr>
+            <td><label>Jméno</label></td>
+            <td><input type="text" th:field="*{firstName}"></td>
+        </tr>
+        <tr>
+            <td><label>Příjmení</label></td>
+            <td><input type="text" th:field="*{lastName}"></td>
+        </tr>
+        <tr>
+            <td><label>Email</label></td>
+            <td><input type="text" th:field="*{email}"></td>
+        </tr>
+        <tr>
+            <td><label>Heslo</label></td>
+            <td><input type="password" th:field="*{password}"></td>
+        </tr>
+        <tr>
+            <td><label>Heslo znovu</label></td>
+            <td><input type="password" th:field="*{passwordCheck}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input type="submit" name="addUser" value="Přidat uživatele"></td>
+        </tr>
+    </table>
+</form>
+<a href="#" th:href="@{/user/list}">Seznam uživatelů</a>
+
+</body>
+</html>
+
+

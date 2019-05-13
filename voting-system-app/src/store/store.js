@@ -3,12 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const state = {token: null}
+const state = {user: null}
 
 const mutations = {
 
-    LOGIN_SUCCESS(state, response) {
-        state.token = response
+    LOGIN_SUCCESS(user, response) {
+        state.user = user
     }
 }
 
