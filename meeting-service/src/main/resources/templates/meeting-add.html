@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting Application - Přidání setkání</title>
+</head>
+<body>
+
+<div th:if="${errorMessage}">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<h2>Přidání setkání</h2>
+<form action="#" th:action="@{/meeting/add}" th:object="${addMeetingForm}" method="post">
+    <table>
+        <tr>
+            <th colspan="2">Nové setkání</th>
+        </tr>
+
+        <tr>
+            <td><label>Datum</label></td>
+            <td><input type="text" th:field="*{date}" placeholder="DD.MM.YYYY"></td>
+        </tr>
+        <tr>
+            <td><label>Čas začátku</label></td>
+            <td><input type="text" th:field="*{startTime}" placeholder="HH:MM"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input type="submit" name="addUser" value="Přidat setkání"></td>
+        </tr>
+    </table>
+</form>
+<a href="#" th:href="@{/meeting/list}">Seznam setkání</a>
+
+</body>
+</html>
