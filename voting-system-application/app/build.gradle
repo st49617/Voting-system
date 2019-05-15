@@ -67,4 +67,4 @@ npm_run_build {
 
 }
 
-assemble.dependsOn npm_run_build
+//assemble.dependsOn npm_run_build

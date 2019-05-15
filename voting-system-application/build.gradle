@@ -23,8 +23,4 @@ dependencyManagement {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
