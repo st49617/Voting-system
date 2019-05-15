@@ -17,6 +17,9 @@ public interface MeetingClient {
     @RequestMapping(method = RequestMethod.GET, value = "get/{id}")
     MeetingDto get(@PathVariable("id") Long id);
 
+    @RequestMapping(method = RequestMethod.GET, value = "get-all")
+    List<MeetingDto> getAll();
+
     @RequestMapping(method = RequestMethod.POST, value = "add")
     String add(@RequestBody MeetingDto meeting);
 }
