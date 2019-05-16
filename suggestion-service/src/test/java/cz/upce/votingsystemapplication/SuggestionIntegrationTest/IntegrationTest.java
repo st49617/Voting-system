@@ -20,11 +20,11 @@ public class IntegrationTest {
 
   @Test
   public void integrationTestFeignClient(){
+    int count = meetingClient.getAll().size();
     MeetingDto meetingDto = new MeetingDto();
     meetingDto.setSuggestions(null);
-    meetingDto.setId(-1000L);
     meetingDto.setStart(Timestamp.from(Instant.now()));
     meetingClient.add(meetingDto);
-    Assert.assertNotNull(meetingClient.get(-100L));
+    Assert.assertEquals(meetingClient.getAll().size(), count + 1);
     }
 }
