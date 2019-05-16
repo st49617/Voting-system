@@ -17,6 +17,11 @@ public class MeetingClientFallback implements MeetingClient {
     }
 
     @Override
+    public List<MeetingDto> getAll() {
+        return null;
+    }
+
+    @Override
     public String add(MeetingDto meetingDto){
         return null;
     }
