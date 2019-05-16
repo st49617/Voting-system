@@ -40,22 +40,26 @@ public class UITest extends AbstractUITest {
         String testText = "Testovaci selenium suggestion " + randomNumber;
 
         //todo nahradit správnou cestou
-        driver.get("C:\\Users\\user\\Documents\\Škola\\INPIA\\voting\\Voting-system\\voting-system-app\\dist#/suggestion");
+        driver.get("file:///home/nomad/skola/inpia_sem/Voting-system/voting-system-app/dist/index.html#/suggestion");
+        //driver.get("C:\\Users\\user\\Documents\\Škola\\INPIA\\voting\\Voting-system\\voting-system-app\\dist#/suggestion");
 
         //Vyplní text návrhu
         driver.findElement(By.name("content")).sendKeys(testText);
 
         //Vybere jeden existujici meeting
-        List<WebElement> listElements = driver.findElements(By.className("v-list__tile__content"));
+        driver.findElement(By.className("v-select__selections")).click();
+        List<WebElement> listElements = driver.findElements(By.className("v-list__tile__title"));
         listElements.get(0).click();
 
         //klikne na uložit
         driver.findElement(By.xpath("//div[contains(text(), \"Uložit\")]")).click();
 
         //todo nahradit správnou cestou k meetingům kde jsou vypsaný i suggestiony
-        driver.get("C:\\Users\\user\\Documents\\Škola\\INPIA\\voting\\Voting-system\\voting-system-app\\dist#/meeting");
+        driver.get("file:///home/nomad/skola/inpia_sem/Voting-system/voting-system-app/dist/index.html#/meeting");
+        //driver.get("C:\\Users\\user\\Documents\\Škola\\INPIA\\voting\\Voting-system\\voting-system-app\\dist#/meeting");
 
         //Vybere jeden z existujici meeting
+        driver.findElement(By.className("v-select__selections")).click();
         List<WebElement> listElements2 = driver.findElements(By.className("v-list__tile__content"));
         listElements2.get(0).click();
 
@@ -77,7 +81,7 @@ public class UITest extends AbstractUITest {
     private void createTestMeeting() throws URISyntaxException {
         Meeting meeting = new Meeting(Timestamp.from(Instant.now()));
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:8089/api/meeting/add";
+        final String baseUrl = "http://localhost:8079/add";
         URI uri = new URI(baseUrl);
 
         HttpHeaders headers = new HttpHeaders();
