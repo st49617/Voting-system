@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -57,6 +58,8 @@ public class UITest extends AbstractUITest {
 
         //Vybere jeden existujici meeting
         driver.findElement(By.className("v-select__selections")).click();
+        // Explicitni cekani na nacteni meeting listu.
+        new WebDriverWait(driver, 10).until(ExpectedConditions.textMatches(By.className("v-list__tile__title"), Pattern.compile("[0-9]{1,2}\\.[0-9]{1,2}\\. [0-9]{4}.*")));
         List<WebElement> listElements = driver.findElements(By.className("v-list__tile__title"));
         String meeting = listElements.get(listElements.size() - 1).getText();
         listElements.get(listElements.size() - 1).click();
@@ -72,6 +75,12 @@ public class UITest extends AbstractUITest {
         //Vybere jeden z existujici meeting
 //        driver.findElement(By.className("v-select__selections")).click();
         //new WebDriverWait(driver, 10).until(ExpectedConditions.textToBe(By.className("v-list__tile__title"), meeting));
+
+        // Explicitni cekani na nacteni meeting listu.
+//        new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfNestedElementsLocatedBy(By.className("v-select__selections"), By.className("v-list__tile__title")));
+        new WebDriverWait(driver, 10).until(ExpectedConditions.textMatches(By.className("v-select__selections"), Pattern.compile("[0-9]{1,2}\\.[0-9]{1,2}\\. [0-9]{4}.*")));
+        // Overi, ze se nacetl onen pridany meeting.
+        Assert.assertEquals(meeting, driver.findElement(By.className("v-select__selection")).getText());
 
         // NEFUNGUJE, prochazi pouze zrovna vylistovane meetingy (nescrollne).
         // NEFUNGUJE, scroll z neznamych duvodu scrollne jen jednou a to o jediny zaznam,
@@ -100,7 +109,7 @@ public class UITest extends AbstractUITest {
 
         new WebDriverWait(driver, 10).until(
                 webDriver -> driver.findElements(By.xpath(xPathToRows)).stream().anyMatch(webElement -> {
-                    System.out.println(testText + " | " + webElement.getText() );
+                    //System.out.println(testText + " | " + webElement.getText() );
                     return webElement.getText().compareTo(testText) == 0;
                 })
         );
