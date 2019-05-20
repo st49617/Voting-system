@@ -21,9 +21,10 @@ import org.springframework.web.client.RestTemplate;
 public class UITest extends AbstractUITest {
 
     @Test
-    public void InvalidLogin() {
-        //todo: nahradit spravnou cestou k souboru
-        driver.get("file:///home/nomad/skola/inpia_sem/Voting-system/voting-system-app/dist/index.html#/login");
+    public void InvalidLogin() throws URISyntaxException {
+        URI webPage = this.getClass().getResource("index.html").toURI();
+
+        driver.get(webPage + "#/login");
         driver.findElement(By.name("input-email")).sendKeys("invalid@login.com");
         driver.findElement(By.name("input-password")).sendKeys("InvalidPassword1234");
         driver.findElement(By.xpath("//div[contains(text(), \"Přihlásit\")]")).click();
@@ -31,7 +32,9 @@ public class UITest extends AbstractUITest {
     }
 
     @Test
-    public void addSuggestion() {
+    public void addSuggestion() throws URISyntaxException {
+        URI webPage = this.getClass().getResource("index.html").toURI();
+
         try {
             createTestMeeting();
         } catch (URISyntaxException e) {
@@ -41,8 +44,7 @@ public class UITest extends AbstractUITest {
         double randomNumber = new Random().nextDouble();
         String testText = "Testovaci selenium suggestion " + randomNumber;
 
-        //todo nahradit správnou cestou
-        driver.get("file:///home/nomad/skola/inpia_sem/Voting-system/voting-system-app/dist/index.html#/suggestion");
+        driver.get(webPage.toString() + "#/suggestion");
         driver.findElement(By.name("content")).sendKeys(testText);
         driver.findElement(By.className("v-select__selections")).click();
 
@@ -55,7 +57,7 @@ public class UITest extends AbstractUITest {
         driver.findElement(By.xpath("//div[contains(text(), \"Uložit\")]")).click();
 
         //todo nahradit správnou cestou
-        driver.get("file:///home/nomad/skola/inpia_sem/Voting-system/voting-system-app/dist/index.html#/meeting");
+        driver.get(webPage.toString() + "#/meeting");
 
         // Explicitni cekani na nacteni meeting listu.
         new WebDriverWait(driver, 10).until(ExpectedConditions.textMatches(By.className("v-select__selections"), Pattern.compile("[0-9]{1,2}\\.[0-9]{1,2}\\. [0-9]{4}.*")));
